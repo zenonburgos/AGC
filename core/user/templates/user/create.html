@@ -1,0 +1,15 @@
+{% extends 'form.html' %}
+{% load static %}
+
+{% block head %}
+    <link href="{% static 'lib/plugins/select2/select2.min.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block footer_list %}
+    <script src="{% static 'lib/plugins/select2/select2.min.js' %}"></script>
+    <script src="{% static 'lib/plugins/select2/custom-select2.js' %}"></script>
+    <script src="{% static 'js/i18n/es.js' %}"></script>
+
+    <script src="{% static 'user/js/form.js' %}"></script>
+
+{% endblock %}

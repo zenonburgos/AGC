@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>Asys | Asistente de Gestión Comercial - {{ title }} </title>
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}"/>
+    <link href="{% static 'css/loader.css' %}" rel="stylesheet" type="text/css" />
+    <script src="{% static 'js/loader.js' %}"></script>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/plugins.css' %}" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/elements/alert.css' %}">
+    <style>
+        .btn-light { border-color: transparent; }
+    </style>
+    <!--  END CUSTOM STYLE FILE  -->
+
+    <!--  BEGIN THIRD PARTY STYLE FILE  -->
+
+    <link href="{% static 'lib/plugins/animate/animate.css' %}" rel="stylesheet" type="text/css"/>
+    <script src="{% static 'lib/plugins/sweetalerts/promise-polyfill.js' %}"></script>
+    <link href="{% static 'lib/plugins/sweetalerts/sweetalert2.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'lib/plugins/sweetalerts/sweetalert.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'lib/plugins/jquery-confirm-v3.3.4/jquery-confirm.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'js/jquery-ui-1.13.2.custom/jquery-ui.min.css' %}" rel="stylesheet" type="text/css" />
+<!--{#    <link rel="stylesheet" type="text/css" href="{% static 'lib/plugins/jquery-step/jquery.steps.css' %}">#}-->
+    <style>
+        #formValidate .wizard > .content {min-height: 25em;}
+        #example-vertical.wizard > .content {min-height: 24.5em;}
+    </style>
+<!--{#    <link href="{% static 'lib/plugins/file-upload/file-upload-with-preview.min.css' %}" rel="stylesheet" type="text/css" />#}-->
+<!--    {# Lo siguiente desordena botones de acciones de datatable #}-->
+<!--    {#    <link href="{% static 'css/components/custom-sweetalert.css' %}" rel="stylesheet" type="text/css" />#}-->
+    <!--  END THIRD PARTY STYLE FILE  -->
+
+    <link href="{% static 'css/mystyle.css' %}" rel="stylesheet" type="text/css" />
+    {% block head %}
+    
+    {% endblock %}
+</head>
+
+    {% block body %}
+    
+    {% endblock %}
+
+</html>

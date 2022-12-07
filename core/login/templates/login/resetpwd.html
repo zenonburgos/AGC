@@ -1,0 +1,66 @@
+{% extends 'login/base.html' %}
+
+{% block content %}
+    <div class="form-container outer">
+        <div class="form-form">
+            <div class="form-form-wrap">
+                <div class="form-container">
+                    <div class="form-content">
+
+                        <a href="{% url 'index' %}"><h1 class="">AGC</h1></a>
+                        <p class="">Solicitar nueva contraseña.</p>
+
+                        <form action="" method="post" class="text-left">
+                            <input type="hidden" name="next" value="{{ next }}">
+                            {% csrf_token %}
+                            <div class="form">
+
+                                <div id="username-field" class="field-wrapper input">
+                                    <label for="username">ESPECIFIQUE SU USUARIO YA EXISTENTE</label>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-user">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    {{ form.username }}
+                                </div>
+
+                                <div class="d-sm-flex justify-content-between">
+                                    <div class="field-wrapper">
+                                        <button type="submit" class="btn btn-primary" value="">Enviar</button>
+                                    </div>
+                                </div>
+                                <p class="signup-link">¿Retornar al Login? Click <a href="{% url 'login' %}">aquí.</a></p>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer_js %}
+    <script type="application/javascript">
+        $(function () {
+            $('form').on('submit', function (e) {
+                e.preventDefault();
+                var parameters = new FormData(this);
+                submit_with_ajax(window.location.pathname, 'Notificación', '¿Está seguro de realizar el proceso de cambio de contraseña?', parameters, function () {
+                    Swal.fire({
+                        title: 'Aviso',
+                        text: 'Se le ha enviado un correo electrónico con los pasos a seguir para resetear su contraseña.',
+                        type: 'success',
+                        timer: 5000
+                    }).then(function (result) {
+                        location.href = '/';
+                    });
+
+                });
+            });
+        });
+    </script>
+{% endblock %}

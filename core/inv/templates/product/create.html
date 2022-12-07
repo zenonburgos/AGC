@@ -1,0 +1,378 @@
+{% extends 'body.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load my_custom_tags %}
+{% block head_list %}
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link href="{% static 'lib/plugins/flatpickr/flatpickr.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'lib/plugins/flatpickr/custom-flatpickr.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="{% static 'lib/plugins/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'lib/plugins/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet"/>
+
+
+    <link href="{% static 'lib/plugins/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.css' %}" rel="stylesheet"
+          type="text/css">
+
+    <link href="{% static 'lib/plugins/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet"/>
+
+    <link href="{% static 'product/css/product.css' %}" rel="stylesheet" type="text/css"/>
+
+    <!--  END CUSTOM STYLE FILE  -->
+{% endblock %}
+{% block content %}
+    <div class="col-lg-12 layout-spacing">
+        <div class="statbox widget box box-shadow">
+            <div class="widget-header">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>{{ title }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-content widget-content-area">
+                <form method="post" id="formProduct" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="{{ action }}">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                               aria-controls="home" aria-selected="true">Generalidades</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                               aria-controls="profile" aria-selected="false">Detalles</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                               aria-controls="contact" aria-selected="false">Auditoría</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <br>
+                            <div class="form-row mb-4">
+                                <div class="form-group col-md-3">
+                                    {{ form.code.label }}
+                                    {{ form.code|add_class:'form-control'|attr:'autocomplete:off' }}
+                                </div>
+                                <div class="form-group col-md-3">
+                                    {{ form.barcode.label }}
+                                    {{ form.barcode|add_class:'form-control'|attr:'autocomplete:off' }}
+                                </div>                                
+                                <div class="form-group col-md-3">
+                                    {{ form.model.label }}
+                                    {{ form.model|add_class:'form-control'|attr:'autocomplete:off' }}
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                {{ form.name.label }}
+                                {{ form.name|add_class:'form-control'|attr:'autocomplete:off' }}
+                            </div>
+                            <div class="form-row mb-2">
+                                <div class="form-group col-md-6">
+                                    <div class="input-group">
+                                        <label>Marca:</label>
+                                        <div class="input-group">
+                                            {{ form.brand }}
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary btnAddBrand" type="button">
+                                                    Nueva Marca
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="input-group">
+                                        <label>Categoría:</label>
+                                        <div class="input-group">
+                                            {{ form.category }}
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary btnAddCat" type="button">
+                                                    Nueva Categoría
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row mb-4">
+                                <div class="form-group col-md-3">
+                                    {{ form.cost.label }}
+                                    {{ form.cost|add_class:'form-control'|attr:'autocomplete:off' }}
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-4">
+                                <div class="form-group col-md-1">
+                                    {{ form.fact.label }}
+                                    {{ form.fact|add_class:'form-control'|attr:'autocomplete:off' }}
+                                </div>
+                                <div class="form-group col-md-3">
+                                    {{ form.price.label }}
+                                    {{ form.price|add_class:'form-control'|attr:'autocomplete:off' }}
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-4">
+                                <div class="form-group col-md-1">
+                                    {{ form.fact2.label }}
+                                    {{ form.fact2|add_class:'form-control'|attr:'autocomplete:off' }}
+                                </div>
+                                <div class="form-group col-md-3">
+                                    {{ form.price2.label }}
+                                    {{ form.price2|add_class:'form-control'|attr:'autocomplete:off' }}
+                                </div>                                                             
+                            </div>
+                            <div class="form-row mb-4">
+                                <div class="form-group col-md-1">
+                                    {{ form.fact3.label }}
+                                    {{ form.fact3|add_class:'form-control'|attr:'autocomplete:off' }}
+                                </div>   
+                                <div class="form-group col-md-3">
+                                    {{ form.price3.label }}
+                                    {{ form.price3|add_class:'form-control'|attr:'autocomplete:off' }}
+                                </div>                                                                                       
+                            </div>
+                        </div>
+
+                        
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <br>
+                            <div class="form-group mb-4">
+                                {{ form.description.label }}
+                                {{ form.description|add_class:'form-control'|attr:'autocomplete:off' }}
+                            </div>
+                            <div class="form-group mb-4">
+                                {{ form.product_type.label }}
+                                {{ form.product_type|add_class:'form-control'|attr:'autocomplete:off' }}
+                            </div>
+                            
+
+                            <div class="form-group mb-4">
+                                {{ form.tags.label }}
+                                {{ form.tags|add_class:'form-control'|attr:'autocomplete:off' }}
+                            </div>
+
+
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <br>
+                            <div class="form-group mb-4">
+                                {{ form.image.label }}
+                                {{ form.image|add_class:'form-control'|attr:'autocomplete:off' }}
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <div class="n-chk">
+                                    <label class="new-control new-checkbox checkbox-primary">
+                                        {{ form.is_inventoried }}
+                                        <span class="new-control-indicator"></span>Afecta al inventario
+                                    </label>
+                                </div>
+                                                            
+                                <div class="n-chk">
+                                    <label class="new-control new-checkbox checkbox-primary">
+                                        {{ form.catalogue }}
+                                        <span class="new-control-indicator"></span>Catálogos
+                                    </label>
+                                </div>
+                                                            
+                                <div class="n-chk">
+                                    <label class="new-control new-checkbox checkbox-primary">
+                                        {{ form.store }}
+                                        <span class="new-control-indicator"></span>Mostrar en Webstore
+                                    </label>
+                                </div>                                
+                            
+                                <div class="n-chk">
+                                    <label class="new-control new-checkbox checkbox-primary">
+                                        {{ form.special_offers }}
+                                        <span class="new-control-indicator"></span>Ofertas
+                                    </label>
+                                </div>
+                                                            
+                                <div class="n-chk">
+                                    <label class="new-control new-checkbox checkbox-primary">
+                                        {{ form.featured_products }}
+                                        <span class="new-control-indicator"></span>Destacados
+                                    </label>
+                                </div>
+
+                                <div class="n-chk">
+                                    <label class="new-control new-checkbox checkbox-primary">
+                                        {{ form.is_hot }}
+                                        <span class="new-control-indicator"></span>Hot
+                                    </label>
+                                </div>
+                            
+                                <div class="n-chk">
+                                    <label class="new-control new-checkbox checkbox-primary">
+                                        {{ form.active }}
+                                        <span class="new-control-indicator"></span>Activo
+                                    </label>
+                                </div>                                
+                            </div>
+
+                            <div class="form-row mb-4">
+                                <div class="form-group col-md-2">
+                                    {{ form.stock.label }}
+                                    {{ form.stock|add_class:'form-control'|attr:'autocomplete:off' }}
+                                </div>
+                                <div class="form-group col-md-2">
+                                    {{ form.last_purchase_date.label }}
+                                    {{ form.last_purchase_date|add_class:'form-control'|attr:'autocomplete:off' }}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <a href="{{ list_url }}" class="btn btn-danger mt-3 float-right"> Cancelar</a>
+                    <button type="submit" class="btn btn-primary mt-3">
+                        Guardar registro
+                    </button>
+                </form>
+
+                <!-- Modal Add Marca -->
+                <div class="modal fade" id="myModalBrand" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                    <form id="frmBrand" enctype="multipart/form-data" method="post">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Nueva Marca</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {% for field in frmBrand.visible_fields %}
+                                        <div class="form-group mb-4">
+                                            {% if field|is_checkbox %}
+                                                {{ field }}
+                                                <span class="new-control-indicator"></span>{{ field.label }}
+                                            {% else %}
+                                                <label for="name">{{ field.label }}</label>
+                                                {{ field|add_class:'form-control'|attr:'autocomplete:off' }}
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">
+                                        Guardar Marca
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal Add Categoría -->
+                <div class="modal fade" id="myModalCat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                    <form id="frmCategory" enctype="multipart/form-data" method="post">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Nueva Categoría</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {% for field in frmCategory.visible_fields %}
+                                        <div class="form-group mb-4">
+                                            {% if field|is_checkbox %}
+                                                {{ field }}
+                                                <span class="new-control-indicator"></span>{{ field.label }}
+                                            {% else %}
+                                                <label for="name">{{ field.label }}</label>
+                                                {{ field|add_class:'form-control'|attr:'autocomplete:off' }}
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">
+                                        Guardar Categoría
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        window.onload = quitarRequired();
+
+        function quitarRequired() {
+            $("input").removeAttr("required");
+            $("select").removeAttr("required");
+            $("textarea").removeAttr("required");
+        }
+    </script>
+
+    <script>
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal({
+                title: '¡Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+
+        $('#formProduct').on('submit', function (e) {
+            e.preventDefault();
+            var parameters = new FormData(this);
+            console.log(parameters)
+            submit_with_ajax(window.location.pathname, 'Notificación', '¿Seguro que quiere agregar el nuevo producto?', parameters, function () {
+                location.href = '{{ list_url }}';
+            });
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block footer_list %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+    <script src="{% static 'lib/plugins/select2-4.0.13/js/select2.min.js' %}"></script>
+    <script src="{% static 'lib/plugins/select2-4.0.13/js/i18n/es.js' %}"></script>
+
+    <script src="{% static 'lib/plugins/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.js' %}"></script>
+
+    <script src="{% static 'lib/plugins/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+
+    <script src="{% static 'product/js/form.js' %}"></script>
+{% endblock %}

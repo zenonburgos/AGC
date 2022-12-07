@@ -1,0 +1,337 @@
+{% extends 'list.html' %}
+{% load static %}
+{% load my_custom_tags %}
+{% load widget_tweaks %}
+{% block head_list %}
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link href="{% static 'css/apps/invoice-add.css' %}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/plugins/dropify/dropify.min.css' %}">
+    <!-- Lo siguiente lo desactivo porque arruina checkboxes -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/forms/theme-checkbox-radio.css' %}"> -->
+    <link href="{% static 'lib/plugins/flatpickr/flatpickr.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'lib/plugins/flatpickr/custom-flatpickr.css' %}" rel="stylesheet" type="text/css">
+
+    {#    <link href="{% static 'lib/plugins/select2/select2.min.css' %}" rel="stylesheet" type="text/css">#}
+    <link href="{% static 'lib/plugins/select2-4.0.13/css/select2.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'lib/plugins/select2-4.0.13/css/select2-bootstrap4.min.css' %}" rel="stylesheet"/>
+
+
+    <link href="{% static 'lib/plugins/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.css' %}" rel="stylesheet"
+          type="text/css">
+
+    <link href="{% static 'lib/plugins/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet"/>
+
+    <link href="{% static 'css/widgets/modules-widgets.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'entry/css/entry.css' %}" rel="stylesheet" type="text/css"/>
+    <!--  END CUSTOM STYLE FILE  -->
+{% endblock %}
+{% block content %}
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <form id="frmEntry" action="post">
+            <div class="row">
+                <div class="col-xl-9">
+                    <div class="widget widget-chart-one">
+                        <div class="widget-heading">
+                            <h5 class="">{{ title }}</h5>
+                            <input type="hidden" id="numdoc" value="{{ numdoc }}">
+                        </div>
+                        <div class="row">
+                            <input type="hidden" name="action" value="{{ action }}">
+                            <div class="col-md-4">
+                                <div class="input-group input-group-sm mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Fecha</span>
+                                    </div>
+
+                                    {{ form.date_joined }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group input-group-sm mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Serie Doc.</span>
+                                    </div>
+                                    {{ form.doc_ser }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group input-group-sm mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Doc. Num.</span>
+                                    </div>
+                                    {{ form.doc_num }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center">
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <label>Proveedor:</label>
+                                    <div class="input-group">
+                                        {{ form.supplier }}
+                                        <div class="input-group-append">
+                                            <button class="btn btn-secondary btnAddSupplier" type="button">
+                                                Nuevo Proveedor
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <label>{{ form.supplier_doc_num.label }}</label>
+                                    <div class="input-group">
+                                        {{ form.supplier_doc_num|add_class:'form-control input-group-sm' }}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-6">
+                                <button type="button" class="btn btn-secondary btn-sm">
+                                    Nuevo cliente...
+                                </button>
+                            </div> -->
+                        </div>
+                        <hr>
+                        <div class="input-group mb-4">
+
+                            <div class="input-group">
+                                <select class="custom-select select2" name="search_product"></select>
+                                <!--<input type="text" class="form-control" autocomplete="off" maxlength="50"
+                                       placeholder="Ingrese palabras clave para buscar producto" name="search">-->
+                                <div class="input-group-append">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Más opciones
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item btnSearchProducts">Buscar productos...</a>
+                                        <a class="dropdown-item btnClearSearch">Limpiar búsqueda</a>
+                                        <a class="dropdown-item btnRemoveAll">Eliminar todo el detalle de factura</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--
+                            <input type="text" class="form-control" name="search"
+                                   placeholder="Ingrese descripción de producto..."
+                                   aria-label="dropdown">
+                            <div class="input-group-append">
+                                <button class="btn btn-success dropdown-toggle" type="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                         stroke-linecap="round" stroke-linejoin="round"
+                                         class="feather feather-search">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="javascript:void(0);">Action</a>
+                                    <a class="dropdown-item" href="javascript:void(0);">Another action</a>
+                                    <a class="dropdown-item" href="javascript:void(0);">Something else here</a>
+                                    <div role="separator" class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="javascript:void(0);">Separated link</a>
+                                </div>
+                            </div>
+                            -->
+                        </div>
+
+                        <table id="zero-config" class="table dt-table-hover tblProducts" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th scope="col" style="width: 5%;">Item</th>
+                                <th scope="col" style="width: 10%;">Código</th>
+                                <th scope="col">Producto</th>
+                                <th scope="col" style="width: 12%;">Cant</th>
+                                <th scope="col" style="width: 10%;">Costo ($)</th>
+                                <th scope="col" style="width: 5%;">Subtotal ($)</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+
+                        </table>
+                        <div class="invoice-detail-total">
+                            <div class="row justify-content-end">
+
+                                <div class="col-md-6">
+                                    <div class="form-group row invoice-created-by">
+                                        <label for="id_subtotal"
+                                               class="col-sm-3 col-form-label col-form-label-sm">Subtotal:</label>
+                                        <div class="col-sm-9">
+                                            {{ form.subtotal }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row invoice-created-by">
+                                        <label for="id_iva"
+                                               class="col-sm-3 col-form-label col-form-label-sm">IVA:</label>
+                                        <div class="col-sm-9">
+                                            {{ form.iva }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row invoice-created-by">
+                                        <label for="id_iva"
+                                               class="col-sm-3 col-form-label col-form-label-sm">IVA Calculado:</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" readonly name="ivacalc"
+                                                   value="0.00">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row invoice-created-by">
+                                        <label for="id_total"
+                                               class="col-sm-3 col-form-label col-form-label-sm">TOTAL:</label>
+                                        <div class="col-sm-9">
+                                            {{ form.total }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xl-3">
+                    <div class="statbox widget box box-shadow">
+                        <div class="input-group input-group-sm mb-4">
+                            {% if user.is_superuser %}
+                            <label class="new-control new-checkbox checkbox-primary">
+                                 {{ form.nulled }}
+                                <span class="new-control-indicator"></span> Guardar como Anulado
+                            </label>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mb-4 mr-2 rounded bs-tooltip" title="Guardar">
+                            Guardar registro
+                        </button>
+                        <a href="{{ list_url }}" class="btn btn-danger btn-block mb-4 mr-2">
+                            Cancelar
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Modal Add Proveedor -->
+        <div class="modal fade" id="myModalSupplier" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <form id="frmSupplier" enctype="multipart/form-data" method="post">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Nuevo Proveedor</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                     stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% for field in frmSupplier.visible_fields %}
+                                <div class="form-group mb-4">
+                                    {% if field|is_checkbox %}
+                                        {{ field }}
+                                        <span class="new-control-indicator"></span>{{ field.label }}
+                                    {% else %}
+                                        <label for="name">{{ field.label }}</label>
+                                        {{ field|add_class:'form-control'|attr:'autocomplete:off' }}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">
+                                Guardar proveedor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal Search Product -->
+        <div class="modal fade" id="myModalSearchProducts" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <form id="frmClient" enctype="multipart/form-data" method="post">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Búsqueda de productos</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                     stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="tblSearchProducts" class="table dt-table-hover" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th scope="col" style="width: 5%;">Item</th>
+                                    <th scope="col" style="width: 40%;">Producto</th>
+                                    <th scope="col" style="width: 15%;">Imagen</th>
+                                    <th scope="col" style="width: 22%;">Costo ($)</th>
+                                    <th scope="col" style="width: 45%;">Stock</th>
+                                    <th scope="col" style="width: 18%;">Opciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block footer_list %}
+    <script>
+        
+        if( $('#id_nulled').is(':checked') != true){
+            // No tiene efecto ya que supplier está puesto como requerido en el modelo
+
+            //$("input").removeAttr("required");
+            //$("select").removeAttr("required");
+            //$("textarea").removeAttr("required");
+        }
+        
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="{% static 'lib/plugins/select2-4.0.13/js/select2.min.js' %}"></script>
+    <script src="{% static 'lib/plugins/select2-4.0.13/js/i18n/es.js' %}"></script>
+
+    <script src="{% static 'lib/plugins/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.js' %}"></script>
+
+    <script src="{% static 'lib/plugins/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+
+    <script src="{% static 'entry/js/form.js' %}"></script>
+
+    <script>
+        ents.items.products = {{ det|safe }};
+        console.log(ents)
+        //vents.list();
+    </script>
+{% endblock %}

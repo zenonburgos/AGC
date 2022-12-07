@@ -1,0 +1,25 @@
+{% extends 'list.html' %}
+{% load static %}
+{% load my_custom_tags %}
+{% load widget_tweaks %}
+{% block columns %}
+    <tr>
+    <tr>
+        <th scope="col" style="width: 10%;">Nro</th>
+        <th scope="col" style="width: 15%;">Nombres</th>
+        <th scope="col" style="width: 15%;">Apellidos</th>
+        <th scope="col" style="width: 10%;">Dni</th>
+        <th scope="col" style="width: 15%;">Fecha de nacimiento</th>
+        <th scope="col" style="width: 15%;">Sexo</th>
+        <th scope="col" style="width: 10%;">Estado</th>
+        <th scope="col" style="width: 10%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+{% endblock %}
+
+{% block footer_list %}
+<script src="{% static 'client/js/list.js' %}"></script>
+{% endblock %}

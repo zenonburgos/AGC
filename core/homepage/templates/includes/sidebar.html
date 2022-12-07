@@ -1,0 +1,177 @@
+{% load static %}
+<!-- ================================== TOP NAVIGATION ================================== -->
+<div class="side-menu animate-dropdown outer-bottom-xs">
+  <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> Categorías</div>
+  <nav class="yamm megamenu-horizontal">
+    <ul class="nav">
+      <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-home" aria-hidden="true"></i>Muebles</a>
+        <ul class="dropdown-menu mega-menu">
+          <li class="yamm-content">
+            <div class="row">
+              <div class="col-sm-12 col-md-3">
+                <ul class="links list-unstyled">
+                  {% for category in menu_categories %}
+                    {% if category.slug == 'dormitorio'  %}
+                      {% for subcategory in category.children.all %}
+                        <li><a href="{{ subcategory.get_url }}">{{ subcategory.name }}</a></li>
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-12 col-md-3">
+                <ul class="links list-unstyled">
+                  {% for category in menu_categories %}
+                    {% if category.slug == 'comedor'  %}
+                      {% for subcategory in category.children.all %}
+                        <li><a href="{{ subcategory.get_url }}">{{ subcategory.name }}</a></li>
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+              <!-- /.col -->
+              
+              <div class="col-sm-12 col-md-3">
+                <ul class="links list-unstyled">
+                  {% for category in menu_categories %}
+                    {% if category.slug == 'sala'  %}
+                      {% for subcategory in category.children.all %}
+                        <li><a href="{{ subcategory.get_url }}">{{ subcategory.name }}</a></li>
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+              <!-- /.col -->
+
+              <div class="col-sm-12 col-md-3">
+                <ul class="links list-unstyled">
+                  {% for category in menu_categories %}
+                    {% if category.slug == 'oficina'  %}
+                      {% for subcategory in category.children.all %}
+                        <li><a href="{{ subcategory.get_url }}">{{ subcategory.name }}</a></li>
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+              <!-- /.col -->
+              
+            </div>
+            <!-- /.row -->
+          </li>
+          <!-- /.yamm-content -->
+        </ul>
+        <!-- /.dropdown-menu --> </li>
+      <!-- /.menu-item -->
+
+      <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-laptop" aria-hidden="true"></i>Electrodomésticos</a>
+        <!-- ================================== MEGAMENU VERTICAL ================================== -->
+        <ul class="dropdown-menu mega-menu">
+          <li class="yamm-content">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-lg-4">
+                <ul>
+                  {% for category in menu_categories %}
+                    {% if category.slug == 'audio'  %}
+                      {% for subcategory in category.children.all %}
+                        <li><a href="{{ subcategory.get_url }}">{{ subcategory.name }}</a></li>
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+
+              <div class="col-xs-12 col-sm-12 col-lg-4">
+                <ul>
+                  {% for category in menu_categories %}
+                    {% if category.slug == 'video'  %}
+                      {% for subcategory in category.children.all %}
+                        <li><a href="{{ subcategory.get_url }}">{{ subcategory.name }}</a></li>
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+              
+              <div class="dropdown-banner-holder"> <a href="#"><img alt="" src="{% static 'homepage/images/banners/banner-side.png' %}" /></a> </div>
+            </div>
+            <!-- /.row -->
+          </li>
+          <!-- /.yamm-content -->
+        </ul>
+        <!-- /.dropdown-menu -->
+        <!-- ================================== MEGAMENU VERTICAL ================================== --> </li>
+      <!-- /.menu-item -->
+
+      <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-bicycle" aria-hidden="true"></i>Línea Comercial</a>
+        <ul class="dropdown-menu mega-menu">
+          <li class="yamm-content">
+            <div class="row">
+              <div class="col-sm-12 col-md-3">
+                <ul class="links list-unstyled">
+                  {% for category in menu_categories %}
+                    {% if category.slug == 'linea-comercial'  %}
+                      {% for subcategory in category.children.all %}
+                        <li><a href="{{ subcategory.get_url }}">{{ subcategory.name }}</a></li>
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+              <!-- /.col -->
+
+              <div class="col-sm-12 col-md-3">
+                <ul class="links list-unstyled">
+                  {% for category in menu_categories %}
+                    {% if category.slug == 'bicicletas'  %}
+                      {% for subcategory in category.children.all %}
+                        <li><a href="{{ subcategory.get_url }}">{{ subcategory.name }}</a></li>
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </li>
+          <!-- /.yamm-content -->
+        </ul>
+        <!-- /.dropdown-menu --> </li>
+      <!-- /.menu-item -->
+
+      <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-gift" aria-hidden="true"></i>Categoría General</a>
+        <ul class="dropdown-menu mega-menu">
+          <li class="yamm-content">
+            <div class="row">
+              <div class="col-sm-12 col-md-3">
+                <ul class="links list-unstyled">
+                  {% for category in menu_categories %}
+                    {% if category.slug == 'categoria-general'  %}
+                      {% for subcategory in category.children.all %}
+                        <li><a href="{{ subcategory.get_url }}">{{ subcategory.name }}</a></li>
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+              <!-- /.col -->
+
+              
+            </div>
+            <!-- /.row -->
+          </li>
+          <!-- /.yamm-content -->
+        </ul>
+        <!-- /.dropdown-menu --> </li>
+      <!-- /.menu-item -->      
+
+    </ul>
+    <!-- /.nav -->
+  </nav>
+  <!-- /.megamenu-horizontal -->
+</div>
+<!-- /.side-menu -->

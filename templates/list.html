@@ -1,0 +1,138 @@
+{% extends 'body.html' %}
+{% load static %}
+{% block head %}
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/plugins/table/datatable/datatables.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/plugins/table/datatable/custom_dt_html5.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/plugins/table/datatable/dt-global_style.css' %}">
+    <!-- END PAGE LEVEL STYLES -->
+
+    {% block head_list %}
+
+    {% endblock %}
+{% endblock %}
+
+{% block content %}
+    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+        <div>
+            {% block buttons_list %}
+                <a href="{{ create_url }}" class="btn btn-primary mb-2" title="Nuevo Registro">
+                    Agregar
+                </a>
+            {% endblock %}
+
+        </div>
+        <br>
+
+        {% if 'product' in request.path %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card component-card_2">                    
+                    <div class="card-body">
+                        <h5 class="card-title">Criterios de búsqueda</h5>
+                        <div class="row mb-2">
+                            <div class="col-lg-12 d-md-flex">
+                                <div style="width: 20%;" class="input-group input-group-sm mb-2 mx-1">
+                                    <input type="text" id="iptNombre" class="form-control" placeholder="Nombre Producto" aria-label="Small" data-index="1">   
+                                </div>
+                                <div style="width: 15%;" class="input-group input-group-sm mb-2 mx-1">
+                                    <input type="text" id="iptCodigo" class="form-control" placeholder="Código producto" aria-label="Small" data-index="2">   
+                                </div>
+                                <div style="width: 15%;" class="input-group input-group-sm mb-2 mx-1">
+                                    <input type="text" id="iptMarca" class="form-control" placeholder="Marca" aria-label="Small" data-index="3">
+                                </div>
+                                <div style="width: 10%;" class="input-group input-group-sm mb-2 mx-1">
+                                    <input type="text" id="iptStockMayor" value="" class="form-control" placeholder="Stock min." aria-label="Small">
+                                </div>
+                                <div style="width: 10%;" class="input-group input-group-sm mb-2 mx-1">
+                                    <input type="text" id="iptStockMenor" class="form-control" placeholder="Stock max." aria-label="Small">
+                                </div>
+                                <div style="width: 15%;" class="input-group input-group-sm mb-2 mx-1">
+                                    <input type="text" id="iptPrecioDesde" class="form-control" placeholder="Precio desde" aria-label="Small">
+                                </div>
+                                <div style="width: 15%;" class="input-group input-group-sm mb-2 mx-1">
+                                    <input type="text" id="iptPrecioHasta" class="form-control" placeholder="Precio hasta" aria-label="Small">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn btn-primary float-right" id="btnLimpiarBusqueda">Limpiar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="widget-content widget-content-area br-6">
+            <table id="zero-config" class="table dt-table-hover" style="width:100%">
+                <thead class="bg-info">
+                    {% block columns %}
+
+                    {% endblock %}
+                </thead>
+                <tbody>
+                    {% block rows %}
+
+                    {% endblock %}
+                    {% for cat in categories %}
+
+                    {% endfor %}
+
+                </tbody>
+                <tfoot>
+                    
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="{% static 'lib/plugins/table/datatable/datatables.js' %}"></script>
+    <script src="{% static 'lib/plugins/table/datatable/button-ext/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'lib/plugins/table/datatable/button-ext/jszip.min.js' %}"></script>
+    <script src="{% static 'lib/plugins/table/datatable/button-ext/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'lib/plugins/table/datatable/button-ext/buttons.print.min.js' %}"></script>
+    <script type="application/javascript">
+        $(function () {
+            $('#zero-config').DataTable({
+                responsive: true,
+                autoWidth: false,
+
+                "dom": "<'dt--top-section'<'row'<'col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center'l><'col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +
+                    "<'table-responsive'tr>" +
+                    "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
+                "oLanguage": {
+                    "oPaginate": {
+                        "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
+                        "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>'
+                    },
+                    "sInfo": "Mostrando página _PAGE_ de _PAGES_",
+                    "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                    "sSearchPlaceholder": "Buscar...",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "order": [[0, "desc"]],
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    },
+                    "sLengthMenu": "Resultados :  _MENU_",
+                },
+                "stripeClasses": [],
+                "lengthMenu": [7, 10, 20, 50],
+                "pageLength": 7,
+                order: [[0, 'desc']],
+            });
+        });
+    </script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+{% endblock %}

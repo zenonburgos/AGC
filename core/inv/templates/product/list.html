@@ -1,0 +1,25 @@
+{% extends 'list.html' %}
+{% load static %}
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 5%;">Nro</th>
+        <th scope="col" style="width: 15%;">Nombre</th>
+        <!-- <th scope="col" style="width: 5%;">Categoria</th> -->
+        <th scope="col" style="width: 10%;">Código</th>
+        <th scope="col" style="width: 10%;">Marca</th>
+        <th scope="col" style="width: 10%;">Imagen</th>
+        <!-- <th scope="col" style="width: 15%;">¿Afecta el inventario?</th> -->
+        <th scope="col" style="width: 10%;">Stock</th>
+        <th scope="col" style="width: 10%;">Precio</th>
+        <th scope="col" style="width: 15%;">Ult.Entrada</th>
+        <th scope="col" style="width: 15%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+
+{% endblock %}
+
+{% block footer_list %}
+<script src="{% static 'product/js/list.js' %}"></script>
+{% endblock %}

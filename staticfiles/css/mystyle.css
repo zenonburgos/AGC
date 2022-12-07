@@ -1,0 +1,51 @@
+.header-container .navbar .language-dropdown a.nav-link {
+    font-size: 14px;
+    color: #e0e6ed;
+}
+
+.navbar .navbar-item .nav-item.user-profile-dropdown .nav-link.user {
+    color: #e0e6ed;
+}
+
+
+@media only screen and (max-width: 480px) {    
+    .card-body .input-group{
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 800px) {    
+    .card-body .input-group{
+        width: 100% !important;
+    }
+}
+
+.category-carousel .item .caption .big-text {
+    font-size: 40px;
+    line-height: 145px;
+    text-transform: capitalize;
+    font-family: 'Open Sans', sans-serif;
+    color: #fdd922;
+}
+
+#owl-main .item .caption.bg-color .big-text {
+    background: rgba(0, 0, 0, 0);
+    padding: 0px;
+    color: #FF7878
+}
+
+.tag.new {
+    background: #46aad7;
+    font-size: 8px;
+}
+
+.tag.hot {
+    background: #ff7878;
+    font-size: 8px;
+}
+
+.tag.sale {
+    background: #fdd922;
+    font-size: 8px;
+}
+

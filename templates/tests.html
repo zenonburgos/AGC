@@ -1,0 +1,118 @@
+{% extends 'body.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block head %}
+    <link href="{% static 'lib/plugins/select2/select2.min.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+    <form method="post" action="." enctype="multipart/form-data">
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-plus"></i>
+                    {{ title }}
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Categorías</label>
+                    {{ form.categories }}
+                </div>
+                <div class="form-group">
+                    <label>Productos</label>
+                    {{ form.products }}
+                </div>
+                <div class="form-group">
+                    <label>Buscador</label>
+                    {{ form.search }}
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'lib/plugins/select2/select2.min.js' %}"></script>
+    <script src="{% static 'js/i18n/es.js' %}"></script>
+
+    <script>
+        var select_products = $('select[name="products"]');
+        $(function () {
+
+            $(".placeholder").select2({
+                placeholder: "Seleccione",
+                allowClear: true,
+                language: "es"
+            });
+
+            $('select[name="categories"]').on('change', function () {
+                var id = $(this).val();
+                var options = '<option value="">--------------------</option>';
+                if (id === '') {
+                    select_products.html(options);
+                    return false;
+                }
+                $.ajax({
+                    url: window.location.pathname,
+                    type: 'POST',
+                    data: {
+                        'action': 'search_product_id',
+                        'id': id
+                    },
+                    dataType: 'json',
+                }).done(function (data) {
+                    if (!data.hasOwnProperty('error')) {
+                        select_products.html('').select2({
+                            placeholder: "Seleccione",
+                            allowClear: true,
+                            language: "es",
+                            data: data
+                        });
+                        /*$.each(data, function (key, value) {
+                            options += '<option value="' + value.id + '">' + value.name + '</option>';
+                        });*/
+                        return false;
+                    }
+                    message_error(data.error);
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + ': ' + errorThrown);
+                }).always(function (data) {
+                    //select_products.html(options);
+                });
+            });
+
+            select_products.on('change', function(){
+               var value = select_products.select2('data')[0];
+               console.log(value);
+            });
+
+            $('select[name="search"]').select2({
+                {#theme: "bootstrap4",#}
+                language: 'es',
+                allowClear: true,
+                ajax: {
+                    delay: 250,
+                    type: 'POST',
+                    url: window.location.pathname,
+                    data: function (params) {
+                        var queryParameters = {
+                            term: params.term,
+                            action: 'autocomplete'
+                        }
+                        return queryParameters;
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                },
+                placeholder: 'Ingrese una descripción',
+                minimumInputLength: 1,
+            });
+        });
+    </script>
+
+
+{% endblock %}

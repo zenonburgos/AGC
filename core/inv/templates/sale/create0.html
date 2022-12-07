@@ -1,0 +1,241 @@
+{% extends 'list.html' %}
+{% load static %}
+{% block head_list %}
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link href="{% static 'css/apps/invoice-add.css' %}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/plugins/dropify/dropify.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/forms/theme-checkbox-radio.css' %}">
+    <link href="{% static 'lib/plugins/flatpickr/flatpickr.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'lib/plugins/flatpickr/custom-flatpickr.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="{% static 'lib/plugins/select2/select2.min.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="{% static 'lib/plugins/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="{% static 'lib/plugins/jquery-ui-1.12.1/jquery-ui.min.css' %}" rel="stylesheet"/>
+    <!--  END CUSTOM STYLE FILE  -->
+{% endblock %}
+{% block content %}
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+        <div class="doc-container">
+
+            <div class="row">
+                <div class="col-xl-12">
+
+                    <div class="invoice-content">
+
+                        <div class="invoice-detail-body">
+
+                            <div class="invoice-detail-title">
+                                <h5>Factura de Venta</h5>
+
+                            </div>
+
+                            <div class="invoice-detail-header">
+                                <div class="row justify-content-between">
+
+                                    <div class="col-md-4">
+
+                                        <div class="form-group mb-4">
+                                            <label>Fecha de venta</label>
+                                            {{ form.date_joined }}
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-8">
+
+                                        <div class="form-group mb-4">
+                                            <label>Cliente</label>
+                                            {{ form.cli }}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="invoice-detail-terms">
+
+                                <div class="input-group mb-4">
+                                    <input type="text" class="form-control" name="search"
+                                           placeholder="Ingrese descripción de producto..."
+                                           aria-label="dropdown">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-success dropdown-toggle" type="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                 stroke-linecap="round" stroke-linejoin="round"
+                                                 class="feather feather-search">
+                                                <circle cx="11" cy="11" r="8"></circle>
+                                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                            </svg>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="javascript:void(0);">Action</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Another action</a>
+                                            <a class="dropdown-item" href="javascript:void(0);">Something else here</a>
+                                            <div role="separator" class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="javascript:void(0);">Separated link</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="invoice-detail-items">
+                                <button type="button" class="btn btn-danger btn-sm btnRemoveAll">
+                                    Limpiar
+                                </button>
+                                <table id="zero-config" class="table dt-table-hover" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 40%;">Producto</th>
+                                        <th scope="col" style="width: 20%;">P.Venta</th>
+                                        <th scope="col" style="width: 15%;">Cant</th>
+                                        <th scope="col" style="width: 20%;">Subtotal</th>
+                                        <th scope="col" style="width: 5%;">Borra</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                            <div class="invoice-detail-total">
+                                <div class="row justify-content-end">
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group row invoice-created-by">
+                                            <label for="id_subtotal"
+                                                   class="col-sm-3 col-form-label col-form-label-sm">Subtotal:</label>
+                                            <div class="col-sm-9">
+                                                {{ form.subtotal }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row invoice-created-by">
+                                            <label for="id_iva"
+                                                   class="col-sm-3 col-form-label col-form-label-sm">IVA:</label>
+                                            <div class="col-sm-9">
+                                                {{ form.iva }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row invoice-created-by">
+                                            <label for="id_iva"
+                                                   class="col-sm-3 col-form-label col-form-label-sm">IVA Calculado:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" readonly name="ivacalc" value="0.00">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row invoice-created-by">
+                                            <label for="id_total"
+                                                   class="col-sm-3 col-form-label col-form-label-sm">TOTAL:</label>
+                                            <div class="col-sm-9">
+                                                {{ form.total }}
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+{#                                    <div class="col-md-12 float-right">#}
+{#                                        <div class="totals-row">#}
+{#                                            <div class="invoice-totals-row invoice-summary-subtotal">#}
+{##}
+{#                                                <div class="invoice-summary-label">Subtotal</div>#}
+{##}
+{#                                                <div class="invoice-summary-value">#}
+{#                                                    <div class="subtotal-amount">#}
+{#                                                        <span class="currency">$</span><span class="amount">100</span>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                            </div>#}
+{##}
+{##}
+{#                                            <div class="invoice-totals-row invoice-summary-total">#}
+{##}
+{#                                                <div class="invoice-summary-label">Discount</div>#}
+{##}
+{#                                                <div class="invoice-summary-value">#}
+{#                                                    <div class="total-amount">#}
+{#                                                        <span class="currency">$</span><span>10</span>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                            </div>#}
+{##}
+{#                                            <div class="invoice-totals-row invoice-summary-tax">#}
+{##}
+{#                                                <div class="invoice-summary-label">Tax</div>#}
+{##}
+{#                                                <div class="invoice-summary-value">#}
+{#                                                    <div class="tax-amount">#}
+{#                                                        <span>0%</span>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                            </div>#}
+{##}
+{#                                            <div class="invoice-totals-row invoice-summary-balance-due">#}
+{##}
+{#                                                <div class="invoice-summary-label">Total</div>#}
+{##}
+{#                                                <div class="invoice-summary-value">#}
+{#                                                    <div class="balance-due-amount">#}
+{#                                                        <span class="currency">$</span><span>90</span>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{##}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+
+                                </div>
+
+                            </div>
+
+                            <div class="invoice-detail-note">
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-xl-3">
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block footer_list %}
+    <script src="{% static 'lib/plugins/dropify/dropify.min.js' %}"></script>
+    <script src="{% static 'lib/plugins/flatpickr/flatpickr.js' %}"></script>
+    <script src="{% static 'js/apps/invoice-add.js' %}"></script>
+
+    <script src="{% static 'lib/plugins/select2/select2.min.js' %}"></script>
+    <script src="{% static 'js/i18n/es.js' %}"></script>
+
+    <script src="{% static 'lib/plugins/bootstrap-touchspin-4.3.0/jquery.bootstrap-touchspin.js' %}"></script>
+
+    <script src="{% static 'lib/plugins/jquery-ui-1.12.1/jquery-ui.min.js' %}"></script>
+
+    <script src="{% static 'sale/js/form.js' %}"></script>
+{% endblock %}

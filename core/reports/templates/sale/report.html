@@ -1,0 +1,63 @@
+{% extends 'list.html' %}
+{% load static %}
+{% block head_list %}
+    <link href="{% static 'lib/plugins/flatpickr/flatpickr.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'lib/plugins/flatpickr/custom-flatpickr.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block content %}
+    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+        <h5>
+            {{ title }}
+        </h5>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label>Del período de:</label>
+                    {{ form.date_range }}
+                </div>
+            </div>
+        </div>
+
+        <div class="widget-content widget-content-area br-6">
+
+            <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
+                <thead>
+                <tr>
+                    <th scope="col">Nro</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Fecha de registro</th>
+                    <th scope="col">Subtotal</th>
+                    <th scope="col">Iva</th>
+                    <th scope="col">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}
+
+{% block footer_list %}
+    <script src="{% static 'lib/plugins/flatpickr/flatpickr.js' %}"></script>
+    <script src="{% static 'lib/plugins/flatpickr/custom-flatpickr.js' %}"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
+    <script src="{% static 'sale/js/report.js' %}"></script>
+
+    <script src="{% static 'lib/plugins/table/datatable/datatables.js' %}"></script>
+    <script src="{% static 'lib/plugins/table/datatable/button-ext/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'lib/plugins/table/datatable/button-ext/jszip.min.js' %}"></script>
+    <script src="{% static 'lib/plugins/table/datatable/button-ext/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'lib/plugins/table/datatable/button-ext/buttons.print.min.js' %}"></script>
+
+
+{% endblock %}
