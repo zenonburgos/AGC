@@ -1,4 +1,5 @@
 import math
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -15,7 +16,7 @@ class MyCount(object):
         self.v2 = self.v1 + 3
         return ''
 
-
+@login_required
 def IndexView(request):
     products = Product.objects.all().filter(store=True).order_by('-created_at')
     offers = Product.objects.all().filter(store=True, special_offers=True).order_by('-created_at')
