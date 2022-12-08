@@ -181,7 +181,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ['https://superangy.store']
+# CSRF_TRUSTED_ORIGINS = ['https://superangy.store']
 
 AUTH_USER_MODEL = 'user.User'
 
@@ -205,5 +205,5 @@ SIMPLE_JWT = {
 }
 
 # Setup support for proxy headers
-USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# USE_X_FORWARDED_HOST = True
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
