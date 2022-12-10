@@ -36,8 +36,11 @@ def store(request, category_slug=None, group_slug=None):
 
 #     category = get_object_or_404(Category, slug=category_slug)
 #     products = category.products.filter(store=True)
-    cart_items = Cart.objects.filter(user=request.user)
-
+    if request.user.is_authenticated:
+        cart_items = Cart.objects.filter(user=request.user)
+    else:
+        cart_items = []
+        
     context = {
      #     'category': category,
          'products': products,
