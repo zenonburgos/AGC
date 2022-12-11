@@ -27,6 +27,7 @@ def IndexView(request):
         cart_items = Cart.objects.filter(user=request.user).order_by('created_at')
     else:
         cart_items = []
+
     # print(products)
     # print(math.ceil(offersCount/3))      
     context = {
@@ -37,5 +38,6 @@ def IndexView(request):
         'range': range(math.ceil(offersCount/3)),
         'contador': MyCount(),
         'cart_items': cart_items,
+        
     }
     return render(request, 'index.html', context)
