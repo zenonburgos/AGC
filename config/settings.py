@@ -29,8 +29,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-# ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['50.116.17.118', '127.0.0.1', 'casaperdomo.tk', 'www.casaperdomo.tk']
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['50.116.17.118', '127.0.0.1', 'comercialperdomo.com', 'www.comercialperdomo.com']
 
 # Application definition
 
@@ -181,7 +181,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CSRF_TRUSTED_ORIGINS = ['https://superangy.store']
+CSRF_TRUSTED_ORIGINS = ['https://comercialperdomo.com']
 
 AUTH_USER_MODEL = 'user.User'
 
@@ -191,9 +191,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 
 EMAIL_PORT = 587
 
-EMAIL_HOST_USER = 'tiquigoods@gmail.com'
+EMAIL_HOST_USER = 'znburgos@gmail.com'
 
-EMAIL_HOST_PASSWORD = 'kburapxxvmbnvygg'
+EMAIL_HOST_PASSWORD = 'dhkmhlyjbsxarquh'
 
 DOMAIN = ''
 

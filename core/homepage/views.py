@@ -23,11 +23,13 @@ def IndexView(request):
     featured = Product.objects.all().filter(store=True, featured_products=True).order_by('-created_at')
     bestseller = Product.objects.all().filter(store=True, best_seller=True).order_by('-created_at')
     offersCount = Product.objects.filter(store=True, special_offers=True).count()    
+    print(products)
+    
     if request.user.is_authenticated:
         cart_items = Cart.objects.filter(user=request.user).order_by('created_at')
     else:
         cart_items = []
-
+    
     # print(products)
     # print(math.ceil(offersCount/3))      
     context = {
@@ -37,7 +39,7 @@ def IndexView(request):
         'bestseller': bestseller,
         'range': range(math.ceil(offersCount/3)),
         'contador': MyCount(),
-        'cart_items': cart_items,
+        'cart_items': cart_items,    
         
     }
     return render(request, 'index.html', context)
