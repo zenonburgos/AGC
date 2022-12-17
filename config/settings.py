@@ -62,6 +62,8 @@ THIRD_PARTY_APPS = [
     'drf_yasg',
     'corsheaders',
     'import_export',
+
+    'social_django',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -76,6 +78,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'crum.CurrentRequestUserMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -97,6 +100,7 @@ TEMPLATES = [
                 'core.inv.context_processors.menu_subcategories',
                 'core.store.context_processors.get_cart_counter',
                 'core.store.context_processors.get_cart_amounts',
+                'social_django.context_processors.backends',
             ],
             'libraries': {
                 'custom_templatetags': 'core.inv.templatetags.my_custom_tags',
@@ -166,7 +170,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-LOGIN_REDIRECT_URL = '/inv/dashboard/'
+LOGIN_REDIRECT_URL = '/inv/index/'
 
 LOGOUT_REDIRECT_URL = '/login/'
 
@@ -195,7 +199,7 @@ EMAIL_HOST_USER = 'znburgos@gmail.com'
 
 EMAIL_HOST_PASSWORD = 'dhkmhlyjbsxarquh'
 
-DOMAIN = ''
+DOMAIN = 'perdomocomercio.com'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -207,3 +211,16 @@ SIMPLE_JWT = {
 # Setup support for proxy headers
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+#social app custom settings
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1138349903551988'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'a03faea4615d65074b69d441317bccab'
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = [
+    'email',
+]
