@@ -37,6 +37,7 @@ urlpatterns = [
     path('inv/', include('core.inv.urls')),
     path('reports/', include('core.reports.urls')),
     path('user/', include('core.user.urls')),
+    path('socialaccounts/', include('allauth.urls')),
 
    # CART PAGE
    path('cart/', StoreViews.cart, name='cart'),    

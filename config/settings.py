@@ -41,6 +41,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 ]
 
 LOCAL_APPS = [
@@ -62,6 +63,14 @@ THIRD_PARTY_APPS = [
     'drf_yasg',
     'corsheaders',
     'import_export',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    # 'django_extensions',
+   
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -166,7 +175,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-LOGIN_REDIRECT_URL = '/inv/dashboard/'
+# LOGIN_REDIRECT_URL = '/inv/dashboard/'
+LOGIN_REDIRECT_URL = 'index'
 
 LOGOUT_REDIRECT_URL = '/login/'
 
@@ -207,3 +217,10 @@ SIMPLE_JWT = {
 # Setup support for proxy headers
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+SITE_ID = 1
+
+# AUTHENTICATION_BACKENDS = [
+#       'django.contrib.auth.backends.ModelBackend',
+#   	  'allauth.account.auth_backends.AuthenticationBackend',
+#       ]

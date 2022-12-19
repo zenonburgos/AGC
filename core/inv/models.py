@@ -184,7 +184,7 @@ class Product(BaseModel):
     special_offers = models.BooleanField(default=False, verbose_name='Ofertas')
     featured_products = models.BooleanField(default=False, verbose_name='Destacados')
     best_seller = models.BooleanField(default=False, verbose_name='Más vendidos')
-    is_hot = models.BooleanField(default=False, verbose_name='Hot')    
+    is_hot = models.BooleanField(default=False, verbose_name='Hot')
 
     def __str__(self):
         # return f'{self.name} ({self.category.name})'
