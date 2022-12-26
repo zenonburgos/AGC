@@ -53,7 +53,7 @@
             <!-- /.contact-row -->
             <!-- ============================================================= SEARCH AREA ============================================================= -->
             <div class="search-area">
-              <form>
+              <form action="{% url 'search' %}" method='GET'>
                 <div class="control-group">
                   <ul class="categories-filter animate-dropdown">
                     <li class="dropdown"> <a class="dropdown-toggle"  data-toggle="dropdown" href="category.html">Categorías <b class="caret"></b></a>
@@ -68,8 +68,9 @@
                       </ul>
                     </li>
                   </ul>
-                  <input class="search-field" placeholder="Psst, busca aquí..." />
-                  <a class="search-button" href="#" ></a> </div>
+                  <input class="search-field" placeholder="Busca tus productos aquí..." name="keyword"/>
+                  <button class="search-button" type="submit" ></button> 
+                </div>
               </form>
             </div>
             <!-- /.search-area -->

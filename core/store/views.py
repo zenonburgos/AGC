@@ -3,6 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Q
 
 from core.store.context_processors import get_cart_counter, get_cart_amounts
 from core.inv.models import Category, Product
@@ -19,12 +21,20 @@ def store(request, category_slug=None, group_slug=None):
          categories = get_object_or_404(Category, slug=category_slug)
      #     products = Product.objects.filter(category__parent=categories, store=True)
          products = Product.objects.filter(category=categories, store=True)
+         paginator = Paginator(products, 1)
+         page = request.GET.get('page')
+         paged_products = paginator.get_page(page)
+
          product_count = products.count()
     else:
          products = Product.objects.all().filter(store=True)
+         paginator = Paginator(products, 20)
+         page = request.GET.get('page')
+         paged_products = paginator.get_page(page)
+        #  print(paged_products.has_other_pages)
          product_count = products.count()
 
-    print("estos son los productos del slug", category_slug, products)
+#    print("estos son los productos del slug", category_slug, products)
 #     if group_slug != None:
 #          groups = get_object_or_404(Group, slug=group_slug)
 #          products = Product.objects.filter(group=groups, store=True)
@@ -43,7 +53,7 @@ def store(request, category_slug=None, group_slug=None):
         
     context = {
      #     'category': category,
-         'products': products,
+         'products': paged_products,
          'product_count': product_count,
          'cart_items': cart_items,
     }
@@ -218,3 +228,27 @@ def delete_cart(request, cart_id):
                 return JsonResponse({'status': 'Failed', 'message': 'Item no existe.'})
         else:
             return JsonResponse({'status': 'Failed', 'message': 'Solicitud inválida.'})
+
+def search(request):
+    if 'keyword' in request.GET:
+        products = ""    
+        product_count = 0
+        keyword = request.GET['keyword']
+        if keyword:
+            products = Product.objects.order_by('created_at').filter(Q(description__icontains=keyword) | 
+                                                                     Q(name__icontains=keyword) | 
+                                                                     Q(code__icontains=keyword) |
+                                                                     Q(model__icontains=keyword) |
+                                                                     Q(tags__icontains=keyword))
+            if 'keyword' in request.GET and request.GET['keyword']:
+                page = request.GET.get('page')
+                keyword = request.GET['keyword']
+                paginator = Paginator(products, 15)
+            paged_products = paginator.get_page(page)
+            product_count = products.count()
+
+    context = {
+        'products': paged_products,
+        'product_count': product_count,
+    }
+    return render(request, 'store/store.html', context)
