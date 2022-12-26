@@ -153,6 +153,7 @@
               <div class="tab-pane active " id="grid-container">
                 <div class="category-product">
                   <div class="row">
+                    {% if products %}
                     {% for product in products %}
                     <div class="col-sm-6 col-md-4 wow fadeInUp">
                       <div class="products">
@@ -196,7 +197,11 @@
                     </div>
                     <!-- /.item -->
                     {% endfor %}
-                                        
+                    {% else %}
+                    <div>
+                      <h2>Ningún resultado. Por favor intenta de nuevo.</h2>
+                    </div>
+                    {% endif %}
                   </div>
                   <!-- /.row --> 
                 </div>
