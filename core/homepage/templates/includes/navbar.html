@@ -10,19 +10,19 @@
           <div class="cnt-account">
             <ul class="list-unstyled">
               {% if user.is_authenticated %}
-              <li><a href="#"><i class="icon fa fa-heart"></i>Lista de deseos</a></li>
-              <li><a href="{% url 'cart' %}"><i class="icon fa fa-shopping-cart"></i>Mi Carrito</a></li>
-              <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
-              {% if user.is_staff %}
-                <li><a href="{% url 'inv:dashboard' %}"><i class="icon fa fa-briefcase"></i>Admin Area</a></li>
+                <li><a href="#"><i class="icon fa fa-heart"></i>Lista de deseos</a></li>
+                <li><a href="{% url 'cart' %}"><i class="icon fa fa-shopping-cart"></i>Mi Carrito</a></li>
+                <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
+                {% if user.is_staff %}
+                  <li><a href="{% url 'inv:dashboard' %}"><i class="icon fa fa-briefcase"></i>Admin Area</a></li>
+                {% else %}
+                  <li><a href="{% url 'cus_dashboard' %}"><i class="icon fa fa-user"></i>Mi Cuenta</a></li>
+                {% endif %}
+                  <li><a href="{% url 'logout' %}"><i class="icon fa fa-sign-out"></i>Salir</a></li>
               {% else %}
-                <li><a href="{% url 'cus_dashboard' %}"><i class="icon fa fa-user"></i>Mi Cuenta</a></li>
-              {% endif %}
-              <li><a href="{% url 'logout' %}"><i class="icon fa fa-sign-out"></i>Salir</a></li>
-              {% else %}
-              <!-- <li><a href="{% url 'login' %}"><i class="icon fa fa-sign-in"></i>Acceder</a></li>               -->
-              <li><a href="{% url 'cus_login' %}"><i class="icon fa fa-lock"></i>Acceder</a></li>
-              <li><a href="{% url 'cus_register' %}"><i class="icon fa fa-user-plus"></i>Registrarse</a></li>
+                <!-- <li><a href="{% url 'login' %}"><i class="icon fa fa-sign-in"></i>Acceder</a></li>               -->
+                <li><a href="{% url 'cus_login' %}"><i class="icon fa fa-lock"></i>Acceder</a></li>
+                <li><a href="{% url 'cus_register' %}"><i class="icon fa fa-user-plus"></i>Registrarse</a></li>
               {% endif %}
             </ul>
           </div>
