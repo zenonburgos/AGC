@@ -194,9 +194,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = ['https://comercialperdomo.com']
 
 AUTH_USER_MODEL = 'user.User'
+# AUTH_USER_MODEL = 'accounts.Account'
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
+#SMTP Configuration
 EMAIL_HOST = 'smtp.gmail.com'
 
 EMAIL_PORT = 587
@@ -205,7 +207,12 @@ EMAIL_HOST_USER = 'znburgos@gmail.com'
 
 EMAIL_HOST_PASSWORD = 'dhkmhlyjbsxarquh'
 
+#In a live server
 DOMAIN = 'perdomocomercio.com'
+######
+
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -224,3 +231,9 @@ SITE_ID = 1
 #       'django.contrib.auth.backends.ModelBackend',
 #   	  'allauth.account.auth_backends.AuthenticationBackend',
 #       ]
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    50: 'critical',
+}

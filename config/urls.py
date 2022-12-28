@@ -33,6 +33,7 @@ urlpatterns = [
     path('', IndexView, name="index"),
     path('store/', include('core.store.urls')),
     path('login/', include('core.login.urls')),
+    path('accounts/', include('core.accounts.urls')),
     path('admin/', admin.site.urls),
     path('inv/', include('core.inv.urls')),
     path('reports/', include('core.reports.urls')),

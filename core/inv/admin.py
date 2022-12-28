@@ -1,7 +1,20 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 
 from import_export.admin import ImportExportModelAdmin
 from core.inv.models import Brand, Category, Group, Entry, Product, Sale, Supplier, Movements, TiposDoc
+from core.accounts.models import Account
+
+# @admin.register(Account)
+# class AccountAdmin(UserAdmin):
+#     list_display = ('email', 'first_name', 'last_name', 'username', 'last_login', 'date_joined', 'is_active')
+#     list_display_links = ('email', 'first_name', 'last_name')
+#     readonly_fields = ('last_login', 'date_joined')
+#     ordering = ('-date_joined',)
+
+#     filter_horizontal = ()
+#     list_filter = ()
+#     fieldsets = ()
 
 @admin.register(Category)
 class CategoryProduct(ImportExportModelAdmin):

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+				<li><a href="{% url 'index' %}">Inicio</a></li>
+				<li class='active'>Registrarse</li>
+			</ul>
+		</div><!-- /.breadcrumb-inner -->
+	</div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+
+<div class="body-content">
+	<div class="container">
+		<div class="sign-in-page">
+			<div class="row">				
+                <!-- create a new account -->
+                <div class="col-md-6 col-sm-12 create-new-account center-block">
+                    <h4 class="checkout-subtitle">Crear una nueva cuenta</h4>
+                    <p class="text title-tag-line">Crear tu nueva cuenta.</p>
+                    
+                    {% include 'includes/alerts.html' %}
+                    
+                    <form action="{% url 'cus_register' %}" method="POST" class="register-form outer-top-xs" role="form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputEmail2">Correo electrónico <span>*</span></label>
+                            {{ form.email }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputEmail1">Nombre <span>*</span></label>
+                            {{ form.first_name }}
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputEmail1">Apellidos <span>*</span></label>
+                            {{ form.last_name }}
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputEmail1">Teléfono <span>*</span></label>
+                            {{ form.phone_number }}
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputEmail1">Contraseña <span>*</span></label>
+                            {{ form.password }}
+                        </div>
+                        <div class="form-group">
+                            <label class="info-title" for="exampleInputEmail1">Confirmar Contraseña <span>*</span></label>
+                            {{ form.confirm_password }}
+                        </div>
+                        <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Registrarse</button>
+                        {{ form.email.errors }}
+                        {{ form.non_field_errors }}
+                    </form>                                        
+                </div>	
+                <!-- create a new account -->
+            </div><!-- /.row -->
+        </div><!-- /.sigin-in-->
+        <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+        {% include 'includes/brands.html' %}
+        <!-- /.logo-slider --> 
+        <!-- ============================================== BRANDS CAROUSEL : END ============================================== --> 
+    </div>
+</div>
+
+{% endblock %}
