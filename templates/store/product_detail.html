@@ -100,7 +100,9 @@
                                             
                                             <div class="add-cart-button btn-group">
 												{% if offer.stock <= 0 %}
-													<h5 class="text-danger">Sin stock</h5>
+													{% if user.is_staff %}
+														<h5 class="text-danger">Sin stock</h5>
+													{% endif %}
                                                 {% else %}
 												<button class="btn btn-primary icon add_to_cart_offer" data-toggle="dropdown" type="button">
                                                     <i class="fa fa-shopping-cart"></i>													
