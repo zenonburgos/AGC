@@ -191,7 +191,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ['https://comercialperdomo.com']
+CSRF_TRUSTED_ORIGINS = ['https://comercialperdomo.com', 'https://www.comercialperdomo.com']
 
 AUTH_USER_MODEL = 'user.User'
 # AUTH_USER_MODEL = 'accounts.Account'

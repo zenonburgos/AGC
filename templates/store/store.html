@@ -170,8 +170,13 @@
                             <h3 class="name"><a href="{{ product.get_url }}">{{ product.name }} <small>{{ product.brand.name }} {{ product.code }}</small></a></h3>
                             <div class="rating rateit-small"></div>
                             <div class="description"></div>
-                            <!-- <div class="product-price"> <span class="price"> $ {{ product.price }} </span> <span class="price-before-discount">$ 800</span> </div> -->
-                            <!-- /.product-price --> 
+                            {% if user.is_staff %}
+                              {% if product.price3 %}
+                                <div class="product-price"> <span class="price"> $ {{ product.price3 }} </span> <span class="price-before-discount">$ 800</span> </div>
+                              {% else %}
+                                <div class="product-price"> <span class="price"> $ {{ product.price }} </span> <span class="price-before-discount">$ 800</span> </div>
+                              {% endif %}
+                                <!-- /.product-price --> 
                             
                           </div>
                           <!-- /.product-info -->
