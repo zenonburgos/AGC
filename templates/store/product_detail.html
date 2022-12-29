@@ -237,7 +237,9 @@
 								<div class="row">
 									
 									{% if single_product.stock <= 0 %}
-										<h5 class="text-danger">Sin stock</h5>
+										{% if user.is_staff %}
+											<h5 class="text-danger">Sin stock</h5>
+										{% endif %}
 									{% else %}
 									<div class="col-sm-2">
 										<span class="label">Cant :</span>
