@@ -61,7 +61,8 @@ def login(request):
         if user:
             auth.login(request, user)
             messages.success(request, 'Has ingresado correctamente.')
-            return redirect('cus_dashboard')
+            # return redirect('cus_dashboard')
+            return redirect('index')
         else:
             messages.error(request, 'Credenciales inválidas.')
             return redirect('cus_login')
