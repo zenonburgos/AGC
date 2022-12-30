@@ -21,7 +21,7 @@ def store(request, category_slug=None, group_slug=None):
          categories = get_object_or_404(Category, slug=category_slug)
      #     products = Product.objects.filter(category__parent=categories, store=True)
          products = Product.objects.filter(category=categories, store=True)
-         paginator = Paginator(products, 1)
+         paginator = Paginator(products, 10)
          page = request.GET.get('page')
          paged_products = paginator.get_page(page)
 

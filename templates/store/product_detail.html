@@ -188,7 +188,9 @@
 								<div class="row">
 									<div class="col-sm-2">
 										<div class="stock-box">
-											<span class="label">Existencia :</span>
+											{% if user.is_staff %}
+												<span class="label">Existencia :</span>
+											{% endif %}
 										</div>	
 									</div>
 									<div class="col-sm-9">
