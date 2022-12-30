@@ -184,11 +184,13 @@
                             <div class="action">
                               <ul class="list-unstyled">
                                 <li class="add-cart-button btn-group">
-                                  <a data-id={{ product.id }} data-url="{% url 'add_to_cart' product.id %}" class="btn btn-primary icon adding_to_cart" data-toggle="dropdown" type="button"> <i class="fa fa-shopping-cart"></i> </a>
-                                  <button class="btn btn-primary cart-btn" type="button">Agregar al carrito</button>
+                                  {% if user.is_staff %}
+                                  <a data-id={{ product.id }} data-url="{% url 'add_to_cart' product.id %}" data-toggle="tooltip" class="btn btn-primary icon adding_to_cart" type="button" title="Agregar al carrito"> <i class="fa fa-shopping-cart"></i> </a>
+                                    <button class="btn btn-primary cart-btn" type="button">Agregar al Carrito</button>
+                                  {% endif %}
                                 </li>
-                                <li class="lnk wishlist"> <a class="add-to-cart" href="{{ product.get_url }}" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> </li>
-                                <li class="lnk"> <a class="add-to-cart" href="{{ product.get_url }}" title="Compare"> <i class="fa fa-signal"></i> </a> </li>
+                                <li class="lnk wishlist"> <a data-toggle="tooltip" class="add-to-cart" href="{{ product.get_url }}" title="Me gusta"> <i class="icon fa fa-heart"></i> </a> </li>
+                                <li class="lnk"> <a data-toggle="tooltip" class="add-to-cart" href="https://wa.me/50377465594?text=Me%20interesa%20este%20producto:%20{{ product.name }}%20{{ product.code }}%20{{ product.brand }}" title="Whatsapp"> <i class="fa fa-whatsapp" aria-hidden="true"></i> </a> </li>
                               </ul>
                             </div>
                             <!-- /.action --> 

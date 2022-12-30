@@ -183,23 +183,24 @@
 									
 								</div><!-- /.row -->		
 							</div><!-- /.rating-reviews -->
-
+							{% if user.is_staff %}
 							<div class="stock-container info-container m-t-10">
 								<div class="row">
+									
 									<div class="col-sm-2">
 										<div class="stock-box">
-											{% if user.is_staff %}
 												<span class="label">Existencia :</span>
-											{% endif %}
-										</div>	
-									</div>
+											</div>	
+										</div>
 									<div class="col-sm-9">
 										<div class="stock-box">
 											<span data-stock="{{single_product.stock}}" class="value stock">{{single_product.stock}}</span>
 										</div>	
 									</div>
+									
 								</div><!-- /.row -->	
 							</div><!-- /.stock-container -->
+							{% endif %}
 
 							<div class="description-container m-t-20">
 								{{ single_product.description }}
@@ -220,11 +221,11 @@
 
 									<div class="col-sm-6">
 										<div class="favorite-button m-t-10">
-											<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Lista de deseos" href="#">
+											<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Me gusta" href="#">
 											    <i class="fa fa-heart"></i>
 											</a>
-											<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Add to Compare" href="#">
-											   <i class="fa fa-signal"></i>
+											<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Pregunta por Whatsapp" href="https://wa.me/50377465594?text=Me%20interesa%20este%20producto:%20{{ product.name }}%20{{ product.code }}%20{{ product.brand }}">
+											   <i class="fa fa-whatsapp"></i>
 											</a>
 											<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="E-mail" href="#">
 											    <i class="fa fa-envelope"></i>
@@ -243,26 +244,28 @@
 											<h5 class="text-danger">Sin stock</h5>
 										{% endif %}
 									{% else %}
-									<div class="col-sm-2">
-										<span class="label">Cant :</span>
-									</div>
-									
-									<div class="col-sm-2">
-										<div class="cart-quantity">
-											<div class="quant-input">
-								                <div class="arrows">
-								                  <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
-								                  <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
-								                </div>												
-								                <input id="cant" type="text" value="1">												
-							              </div>
-							            </div>
-									</div>
-									<div class="col-sm-7">
-										<a href="#" class="btn btn-primary adding_to_cart" 
-										data-id={{ single_product.id }} data-url="{% url 'add_to_cart_in_product_detail' single_product.id %}">
-										<i class="fa fa-shopping-cart inner-right-vs"></i> AGREGAR AL CARRITO</a>
-									</div>
+										{% if user.is_staff %}
+											<div class="col-sm-2">
+												<span class="label">Cant :</span>
+											</div>
+											
+											<div class="col-sm-2">
+												<div class="cart-quantity">
+													<div class="quant-input">
+														<div class="arrows">
+														<div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
+														<div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
+														</div>												
+														<input id="cant" type="text" value="1">												
+												</div>
+												</div>
+											</div>
+											<div class="col-sm-7">
+												<a href="#" class="btn btn-primary adding_to_cart" 
+												data-id={{ single_product.id }} data-url="{% url 'add_to_cart_in_product_detail' single_product.id %}">
+												<i class="fa fa-shopping-cart inner-right-vs"></i> AGREGAR AL CARRITO</a>
+											</div>
+										{% endif %}
 									{% endif %}
 									
 								</div><!-- /.row -->
@@ -293,7 +296,7 @@
 								
 								<div id="description" class="tab-pane in active">
 									<div class="product-tab">
-										<p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+										<p class="text">{{ product.description }}</p>
 									</div>	
 								</div><!-- /.tab-pane -->
 
@@ -306,7 +309,7 @@
 											<div class="reviews">
 												<div class="review">
 													<div class="review-title"><span class="summary">Me encanta este producto</span><span class="date"><i class="fa fa-calendar"></i><span>Hace 1 día</span></span></div>
-													<div class="text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit.Aliquam suscipit."</div>
+													<div class="text">"Producto de gran calidad."</div>
 												</div>
 											
 											</div><!-- /.reviews -->
