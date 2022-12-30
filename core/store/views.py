@@ -21,14 +21,14 @@ def store(request, category_slug=None, group_slug=None):
          categories = get_object_or_404(Category, slug=category_slug)
      #     products = Product.objects.filter(category__parent=categories, store=True)
          products = Product.objects.filter(category=categories, store=True)
-         paginator = Paginator(products, 10)
+         paginator = Paginator(products, 18)
          page = request.GET.get('page')
          paged_products = paginator.get_page(page)
 
          product_count = products.count()
     else:
          products = Product.objects.all().filter(store=True)
-         paginator = Paginator(products, 20)
+         paginator = Paginator(products, 18)
          page = request.GET.get('page')
          paged_products = paginator.get_page(page)
         #  print(paged_products.has_other_pages)
@@ -230,9 +230,11 @@ def delete_cart(request, cart_id):
             return JsonResponse({'status': 'Failed', 'message': 'Solicitud inválida.'})
 
 def search(request):
+    products = None
+    paged_products = None
+    product_count = None
+    keyword = None
     if 'keyword' in request.GET:
-        products = ""    
-        product_count = 0
         keyword = request.GET['keyword']
         if keyword:
             products = Product.objects.order_by('created_at').filter(Q(description__icontains=keyword) | 
@@ -243,12 +245,13 @@ def search(request):
             if 'keyword' in request.GET and request.GET['keyword']:
                 page = request.GET.get('page')
                 keyword = request.GET['keyword']
-                paginator = Paginator(products, 15)
+                paginator = Paginator(products, 9)
             paged_products = paginator.get_page(page)
             product_count = products.count()
 
     context = {
         'products': paged_products,
         'product_count': product_count,
+        'keyword': keyword,
     }
     return render(request, 'store/store.html', context)
