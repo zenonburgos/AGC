@@ -31,6 +31,7 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = ['50.116.17.118', '127.0.0.1', 'comercialperdomo.com', 'www.comercialperdomo.com']
+# ALLOWED_HOSTS = ['comercialperdomo.com', 'www.comercialperdomo.com']
 
 # Application definition
 

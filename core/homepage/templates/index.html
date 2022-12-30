@@ -375,7 +375,7 @@
                       <div class="row product-micro-row">
                         <div class="col col-xs-5">
                           <div class="product-image">
-                            <div class="image"> <a href="#"> <img src="{% if product.image %} {{ product.image.url }} {% else %} {% static 'img/producto-sin-foto.jpg' %} {% endif %}" alt=""> </a> </div>
+                            <div class="image"> <a href="{{ product.get_url }}"> <img src="{% if product.image %} {{ product.image.url }} {% else %} {% static 'img/producto-sin-foto.jpg' %} {% endif %}" alt=""> </a> </div>
                             <!-- /.image -->
 
                           </div>
