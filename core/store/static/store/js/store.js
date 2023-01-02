@@ -303,3 +303,7 @@ $(document).ready(function () {
         "hideMethod": "fadeOut"
       }
 })
+
+$('#facebook').click(function() {
+    window.open('http://www.facebook.com/sharer.php?u='+window.location.href, '_blank');
+  });
