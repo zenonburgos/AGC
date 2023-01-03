@@ -316,7 +316,7 @@ $('#whatsapp').click(function() {
 // });
 
 $('#twitter').click(function() {
-    window.open('https://twitter.com/intent/tweet?text=MIEpresa&url='+window.location.href, '_blank');
+    window.open('https://twitter.com/intent/tweet?text=Comercial Perdomo&url='+window.location.href, '_blank');
 });
 
 $('#linkdin').click(function() {
