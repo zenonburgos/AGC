@@ -89,7 +89,6 @@
                                             <span class="price">
                                                 ${{offer.price}}
                                             </span>
-                                             
                                         </div>
 										<!-- /.product-price -->
                                         {% endif %}
@@ -224,7 +223,7 @@
 											<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Me gusta" href="#">
 											    <i class="fa fa-heart"></i>
 											</a>
-											<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Pregunta en Whatsapp" href="https://wa.me/50377465594?text=Me%20interesa%20este%20producto:%20{{ single_product.name }}%20{{ single_product.code }}%20{{ single_product.brand }}" target="_blank">
+											<a class="btn btn-wa" id="whatsapp_product_single" data-toggle="tooltip" data-placement="right" title="Pregúntanos por Whatsapp" href="https://wa.me/50377465594?text=Me%20interesa%20este%20producto:%20{{ single_product.name }}%20{{ single_product.code }}%20{{ single_product.brand }}" target="_blank">
 											   <i class="fa fa-whatsapp"></i>
 											</a>
 											<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="E-mail" href="#">
@@ -507,4 +506,7 @@
 </div><!-- /.logo-slider -->
 <!-- == = BRANDS CAROUSEL : END = -->	</div><!-- /.container -->
 </div><!-- /.body-content -->
+<script>
+	
+</script>
 {% endblock %}
