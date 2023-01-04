@@ -203,6 +203,13 @@
 
 							<div class="description-container m-t-20">
 								{{ single_product.description }}
+								{% if user.is_staff %}
+									{% if user.is_admin %}
+										<span class="label label-default">Costo: ${{single_product.cost}}</span>
+									{% endif %}
+									<span class="label label-primary">Precio 2: ${{single_product.price2}}</span>
+									<span class="label label-success">Precio 3: ${{single_product.price3}}</span>
+								{% endif %}
 							</div><!-- /.description-container -->
 
 							<div class="price-container info-container m-t-20">
@@ -212,8 +219,8 @@
 									<div class="col-sm-6">
 										<div class="price-box">
 											{% if user.is_staff %}
-											<span class="price">${{ single_product.price | floatformat:2  }}</span>
-											<span class="price-strike">${{ strikePrice | floatformat:2 }}</span>
+												<span class="price">${{ single_product.price | floatformat:2  }}</span>
+												<span class="price-strike">${{ strikePrice | floatformat:2 }}</span>
 											{% endif %}
 										</div>
 									</div>
