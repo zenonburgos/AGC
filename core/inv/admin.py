@@ -41,7 +41,7 @@ class GroupProduct(ImportExportModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(ImportExportModelAdmin):
-    fields = ('code', 'barcode', 'name', 'description', 'slug', 'product_type', 'category', 'model', 'brand', 'cost', 'fact', 'price', 'image', 'is_inventoried', 'active', 'store', 'special_offers', 'featured_products', 'best_seller', 'is_hot')
+    fields = ('code', 'barcode', 'name', 'description', 'slug', 'product_type', 'category', 'model', 'brand', 'cost', 'fact', 'fact2', 'fact3', 'price', 'price2', 'price3', 'image', 'is_inventoried', 'active', 'store', 'special_offers', 'featured_products', 'best_seller', 'is_hot')
     list_display_links = ('name', 'model')
     list_display = ('name', 'model', 'marca', 'store', 'brand', 'category', 'active', 'catalogue', 'special_offers', 'featured_products', 'best_seller', 'is_hot', 'created_at')
     list_editable = ('active', 'catalogue', 'brand', 'category', 'store', 'special_offers', 'featured_products', 'best_seller', 'is_hot')
