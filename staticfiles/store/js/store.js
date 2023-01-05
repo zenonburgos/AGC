@@ -303,3 +303,25 @@ $(document).ready(function () {
         "hideMethod": "fadeOut"
       }
 })
+
+$('#facebook').click(function() {
+    window.open('http://www.facebook.com/sharer.php?u='+window.location.href, '_blank');
+});
+
+$('#whatsapp').click(function() {
+    window.open('https://api.whatsapp.com/send?text='+window.location.href, '_blank');
+});
+// $('#whatsapp_product_single').click(function() {
+//     window.open('https://wa.me/50377465594?text=Me%20interesa%20este%20producto: %20'+'{{ single_product.code }}', '_blank');
+// });
+
+$('#twitter').click(function() {
+    window.open('https://twitter.com/intent/tweet?text=Comercial Perdomo&url='+window.location.href, '_blank');
+});
+
+$('#linkdin').click(function() {
+    window.open('http://www.linkedin.com/shareArticle?url='+window.location.href, '_blank');
+});
+// $('#youtube').click(function() {
+//     window.open('https://twitter.com/intent/tweet?text=MIEpresa&url='+window.location.href, '_blank');
+// });

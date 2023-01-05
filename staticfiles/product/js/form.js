@@ -132,7 +132,7 @@ $(function () {
         if($('input[name="price2"]').val() == 0){
             if($('input[name="fact2"]').val() > 0){            
                 var price2 = parseFloat(cost/fact2.val()).toFixed(2);
-                $("#id_price2").val(price1);
+                $("#id_price2").val(price2);
             }
         }
 
