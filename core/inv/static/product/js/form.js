@@ -1,5 +1,6 @@
 var input_is_inventoried;
 
+//Para evitar submit con enter
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('input[type=text]').forEach( node => node.addEventListener('keypress', e => {
       if(e.keyCode == 13) {
@@ -121,27 +122,31 @@ $(function () {
 
     product_cost.on('change', function () {
         var cost = parseFloat($(this).val())*1.13;
-
-        if($('input[name="price"]').val() == 0){
-            if($('input[name="fact"]').val() > 0){            
+        
+        //alert($('input[name="price2"]').val() == 0 || $('input[name="price2"]').val() === "")
+        
+        if($('input[name="price"]').val() == 0 || $('input[name="price"]').val() === ""){
+            if($('input[name="fact"]').val() > 0){
                 var price1 = parseFloat(cost/fact1.val()).toFixed(2);
                 $("#id_price").val(price1);
             }
         }
 
-        if($('input[name="price2"]').val() == 0){
+        if($('input[name="price2"]').val() == 0 || $('input[name="price2"]').val() === ""){            
             if($('input[name="fact2"]').val() > 0){            
                 var price2 = parseFloat(cost/fact2.val()).toFixed(2);
                 $("#id_price2").val(price2);
             }
         }
 
-        if($('input[name="price3"]').val() == 0){
+        if($('input[name="price3"]').val() == 0 || $('input[name="price3"]').val() === ""){
             if($('input[name="fact3"]').val() > 0){            
                 var price3 = parseFloat(cost/fact3.val()).toFixed(2);
                 $("#id_price3").val(price3);
             }
         }
+
+        incons_precio();
         
         // if($(this).val() == 0){            
         //     $("#id_price").val(0);
@@ -183,7 +188,45 @@ $(function () {
     if($('input[name="action"]').val() === 'edit'){
         input_is_inventoried.trigger('change');
     }
+
+    //Botón actualizar precios
+    $('#actualizaPrecios').on('click', function () {
+        var cost = parseFloat($('input[name="cost"]').val())*1.13;
+
+        var price1 = parseFloat(cost/fact1.val()).toFixed(2);
+        $("#id_price").val(price1);
+        var price2 = parseFloat(cost/fact2.val()).toFixed(2);
+        $("#id_price2").val(price2);
+        var price3 = parseFloat(cost/fact3.val()).toFixed(2);
+        $("#id_price3").val(price3);
+
+        incons_precio();
+    });
+
+    incons_precio();
+    
 });
+
+function incons_precio() {
+    //Aviso inconsistencia precios
+    if(parseFloat(($('input[name="cost"]').val()*1.13)/fact1.val()).toFixed(2) != $("#id_price").val()){
+        $('.incons_precio').show();
+    }else{
+        $('.incons_precio').hide();
+    }
+
+    if(parseFloat(($('input[name="cost"]').val()*1.13)/fact2.val()).toFixed(2) != $("#id_price2").val()){
+        $('.incons_precio').show();
+    }else{
+        $('.incons_precio').hide();
+    }
+
+    if(parseFloat(($('input[name="cost"]').val()*1.13)/fact3.val()).toFixed(2) != $("#id_price3").val()){
+        $('.incons_precio').show();
+    }else{
+        $('.incons_precio').hide();
+    }
+}
 
 // document.getElementById('id_fact').onchange = function() {
 //     var cost = parseFloat(document.getElementById('id_cost').value);
