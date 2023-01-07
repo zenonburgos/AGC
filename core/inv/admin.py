@@ -2,7 +2,10 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from import_export.admin import ImportExportModelAdmin
-from core.inv.models import Brand, Category, Group, Entry, Product, Sale, Supplier, Movements, TiposDoc
+
+from core.inv.models import Brand, Category, Group, Entry, Product, Sale, Supplier, \
+    Movements, TiposDoc, ProductImage
+
 from core.accounts.models import Account
 
 # @admin.register(Account)
@@ -39,6 +42,10 @@ class GroupProduct(ImportExportModelAdmin):
     list_editable = ('category',)
 
 
+class ProductImageAdmin(admin.TabularInline):
+    model = ProductImage
+
+
 @admin.register(Product)
 class ProductAdmin(ImportExportModelAdmin):
     fields = ('code', 'barcode', 'name', 'description', 'slug', 'product_type', 'category', 'model', 'brand', 'cost', 'fact', 'fact2', 'fact3', 'price', 'price2', 'price3', 'image', 'is_inventoried', 'active', 'store', 'special_offers', 'featured_products', 'best_seller', 'is_hot')
@@ -47,8 +54,10 @@ class ProductAdmin(ImportExportModelAdmin):
     list_editable = ('active', 'catalogue', 'brand', 'category', 'store', 'special_offers', 'featured_products', 'best_seller', 'is_hot')
     search_fields = ['code', 'name']
     list_per_page = 15
+    inlines = [
+        ProductImageAdmin
+    ]
     
-
 
 @admin.register(Supplier)
 class SupplierAdmin(admin.ModelAdmin):

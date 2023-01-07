@@ -23,7 +23,4 @@ urlpatterns = [
     #DELETE CART ITEM
     path('delete_cart/<int:cart_id>', views.delete_cart, name='delete_cart'),
     # path('<slug:group_slug>/', views.store, name='products_by_group'),
-
-     
-    
 ]

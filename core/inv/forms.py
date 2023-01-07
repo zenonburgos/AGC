@@ -3,7 +3,7 @@ from datetime import datetime
 from django.forms import *
 from django import forms
 
-from core.inv.models import Category, Entry, Product, Client, Sale, Company, Supplier, Brand
+from core.inv.models import Category, Entry, Product, ProductImage, Client, Sale, Company, Supplier, Brand
 
 
 class CategoryForm(ModelForm):
@@ -161,6 +161,11 @@ class ProductForm(ModelForm):
         except Exception as e:
             data['error'] = str(e)
         return data
+
+class ProductImageForm(ModelForm):
+    class meta:
+        model = ProductImage
+        fields = ['image']
 
 
 class TestForm(Form):

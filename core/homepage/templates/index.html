@@ -233,8 +233,8 @@
                           </div>
                           <div style="float: right;">
                             <a class="btn btn-primary btnwa" href="https://wa.me/50377465594?text=Me%20interesa%20este%20producto:%20{{ product.name }}%20{{ product.code }}%20{{ product.brand }}" type="button" target="_blank">
-                            <i class="fa fa-whatsapp"></i>													
-                            </a>
+                              <i class="fa fa-whatsapp"></i>													
+                              </a>
                           </div>
                         </div>
 
@@ -245,7 +245,7 @@
                             <ul class="list-unstyled">
                                 <li class="add-cart-button btn-group">
                                   {% if user.is_staff %}
-                                  <a data-id={{ product.id }} data-url="{% url 'add_to_cart' product.id %}" data-toggle="tooltip" class="btn btn-primary icon adding_to_cart" type="button" title="Agregar al carrito"> <i class="fa fa-shopping-cart"></i> </a>
+                                    <a data-id={{ product.id }} data-url="{% url 'add_to_cart' product.id %}" data-toggle="tooltip" class="btn btn-primary icon adding_to_cart" type="button" title="Agregar al carrito"> <i class="fa fa-shopping-cart"></i> </a>
                                     <button class="btn btn-primary cart-btn" type="button">Agregar al Carrito</button>
                                   {% endif %}
                                 </li>

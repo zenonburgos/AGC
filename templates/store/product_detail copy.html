@@ -132,57 +132,49 @@
 			<div class='col-md-9'>
             <div class="detail-block">
 				<div class="row  wow fadeInUp">
-					
+                
 					<div class="col-xs-12 col-sm-6 col-md-5 gallery-holder">
-						<div class="product-item-holder size-big single-product-gallery small-gallery">
+                        <div class="product-item-holder size-big single-product-gallery small-gallery">
 							
-							<div id="owl-single-product">
-								{% if images %}
+                            <div id="owl-single-product">
+								{% if single_product.image %}
+									{% if images.image %}
 									{% for image in images %}
-									<div class="single-product-gallery-item" id="slide{{ forloop.counter }}">
-										<a data-lightbox="image-1" data-title="Galería" href="{{ image.image.url }}">
-											<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="{{ image.image.url }}"/>
-										</a>
-									</div><!-- /.single-product-gallery-item -->
-									{% endfor %}
-								{% else %}
-									{% if single_product.image %}
 										<div class="single-product-gallery-item" id="slide1">
-											<a data-lightbox="image-1" data-title="Galería" href="{{ single_product.image.url }}">
-												<img class="img-responsive" alt="" src="assets/images/blank.gif" data-echo="{{ single_product.image.url }}"/>
+											<a data-lightbox="image-1" data-title="Gallery" href="{{ image.image.url }}">
+												<img class="img-responsive" alt="" src="{% static 'homepage/images/blank.gif' %}" data-echo="{{ image.image.url }}" />
 											</a>
 										</div><!-- /.single-product-gallery-item -->
+									{% endfor %}
 									{% else %}
-										<div class="single-product-gallery-item" id="slide1">
-											<a data-lightbox="image-1" data-title="Gallery" href="{% static 'img/producto-sin-foto.jpg' %}">
-												<img class="img-responsive" alt="" src="{% static 'homepage/images/blank.gif' %}" data-echo="{% static 'img/producto-sin-foto.jpg' %}" />
-											</a>
-										</div><!-- /.single-product-gallery-item -->
+									<a data-lightbox="image-1" data-title="Gallery" href="{{ single_product.image.url }}">
+										<img class="img-responsive" alt="" src="{% static 'homepage/images/blank.gif' %}" data-echo="{{ single_product.image.url }}" />
+									</a>
 									{% endif %}
+								{% else %}
+									<a data-lightbox="image-1" data-title="Gallery" href="{% static 'img/producto-sin-foto.jpg' %}">
+										<img class="img-responsive" alt="" src="{% static 'homepage/images/blank.gif' %}" data-echo="{% static 'img/producto-sin-foto.jpg' %}" />
+									</a>
 								{% endif %}
-							</div><!-- /.single-product-slider -->
-					
-					
-							<div class="single-product-gallery-thumbs gallery-thumbs">
-					
-								<div id="owl-single-product-thumbnails">
-									{% for image in images %}
-									<div class="item">
-										<a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="{{ forloop.counter }}" href="#slide{{ forloop.counter }}">
-											<img class="img-responsive" width="85" alt="" src="assets/images/blank.gif" data-echo="{{ image.image.url }}" />
-										</a>
-									</div>
-									{% endfor %}
-									
-								</div><!-- /#owl-single-product-thumbnails -->
-					
-							</div><!-- /.gallery-thumbs -->
+                            </div><!-- /.single-product-slider -->
 							
-						</div><!-- /.single-product-gallery -->
-					</div><!-- /.gallery-holder -->
+                            <div class="single-product-gallery-thumbs gallery-thumbs">
 
+                                <div id="owl-single-product-thumbnails">
+									{% if single_product.image %}
+										
+										<div class="item">
+											<a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="{{ forloop.counter }}" href="#slide{{ forloop.counter }}">
+												<img class="img-responsive" width="85" alt="" src="{{ single_product.image.url }}" data-echo="{{ single_product.image.url }}" />
+											</a>
+										</div>
+																			
+									{% endif %}
+                                </div>
+                            </div>
 
-
+                        </div><!-- /.single-product-gallery -->
+                    </div><!-- /.gallery-holder -->        			
 					<div class='col-sm-6 col-md-7 product-info-block'>
 						<div class="product-info">
 							<h1 class="name">{{ single_product.name }} <small>{{ single_product.brand.name }} {{ single_product.code }}</small></h1>

@@ -7,7 +7,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 
 from core.store.context_processors import get_cart_counter, get_cart_amounts
-from core.inv.models import Category, Product
+from core.inv.models import Category, Product, ProductImage
 
 from .models import Cart
 
@@ -78,6 +78,9 @@ def product_detail(request, category_slug, product_slug):
 
         offers = Product.objects.all().filter(store=True, special_offers=True).order_by('-created_at')
         offersCount = Product.objects.filter(store=True, special_offers=True).count()
+
+        images = ProductImage.objects.filter(product=single_product)
+        
     except Exception as e:
         raise e
 
@@ -93,6 +96,7 @@ def product_detail(request, category_slug, product_slug):
         'range': range(math.ceil(offersCount)),
         'contador': MyCount(),
         'cart_items': cart_items,
+        'images': images,
     }
     return render(request, 'store/product_detail.html', context)
 

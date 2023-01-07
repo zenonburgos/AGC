@@ -244,6 +244,10 @@ def set_slug(sender, instance, *args, **kwargs):  # callback
 
 pre_save.connect(set_slug, sender=Product)
 
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
+    image = models.ImageField(upload_to='product/%Y/%m/%d', verbose_name='Imagen')
+
 
 class Client(BaseModel):
     names = models.CharField(max_length=150, verbose_name='Nombres')
