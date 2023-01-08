@@ -243,9 +243,9 @@ def search(request):
         if keyword:
             products = Product.objects.order_by('created_at').filter(Q(description__icontains=keyword) | 
                                                                      Q(name__icontains=keyword) | 
-                                                                     Q(code__icontains=keyword) |
+                                                                     Q(code__icontains=keyword) | 
                                                                      Q(model__icontains=keyword) |
-                                                                     Q(tags__icontains=keyword))
+                                                                     Q(tags__icontains=keyword), store=True)
             if 'keyword' in request.GET and request.GET['keyword']:
                 page = request.GET.get('page')
                 keyword = request.GET['keyword']
