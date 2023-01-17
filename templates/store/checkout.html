@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+				<li><a href="#">Inicio</a></li>
+				<li class='active'>Checkout</li>
+			</ul>
+		</div><!-- /.breadcrumb-inner -->
+	</div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+{% include 'includes/alerts.html' %}
+<div class="body-content">
+	<div class="container">
+        
+        
+		<div class="checkout-box ">
+            
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel-group checkout-steps" id="accordion">
+                        <form action="{% url 'place_order' %}" method="POST">
+                            {% csrf_token %}
+                            <!-- checkout-step-01  -->
+                            <div class="panel panel-default checkout-step-01">
+
+                                <!-- panel-heading -->
+                                <div class="panel-heading">
+                                    <h4 class="unicase-checkout-title">
+                                        <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
+                                        <span>1</span>Su Orden de Compra
+                                        </a>
+                                    </h4>
+                                </div>
+                                <!-- panel-heading -->
+                                
+                                <div id="collapseOne" class="panel-collapse collapse in">
+
+                                    <!-- panel-body  -->
+                                    <div class="panel-body">
+                                        <div class="shopping-cart">
+                                            <div class="shopping-cart-table">					
+                                                <div class="table-responsive">
+                                                    
+                                                    <table id="carrito" class="table">
+                                                        <thead>
+                                                            <tr>                                                            
+                                                                <th class="cart-description item">Imagen</th>
+                                                                <th class="cart-product-name item">Producto</th>
+                                                                <th class="cart-qty item">Cant</th>
+                                                                <th class="cart-sub-total item">Precio unit.</th>
+                                                            </tr>
+                                                        </thead><!-- /thead -->
+                                                        
+                                                        <tbody>
+                                                            {% for item in cart_items %}
+                                                            
+                                                            <tr>
+                                                                <td class="cart-image">
+                                                                    <a class="entry-thumbnail" href="{{ item.product.get_url }}">
+                                                                        <img src="{% if item.product.image %} {{ item.product.image.url }} {% else %} {% static 'img/producto-sin-foto.jpg' %} {% endif %}" alt="">
+                                                                    </a>
+                                                                </td>
+                                                                <td class="cart-product-name-info">
+                                                                    <h4 class='cart-product-description'><a href="{{ item.product.get_url }}">{{ item.product }}</a></h4>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-4">
+                                                                            <a href="{% url 'products_by_category' item.product.category.slug %}">{{ item.product.category }}</a>
+                                                                        </div>
+                                                                        
+                                                                    </div><!-- /.row -->
+                                                                    
+                                                                </td>                                                           
+                                                                <td class="cart-product-quantity">
+                                                                    <div class="quant-input">
+                                                                        <label>{{ item.quantity }}</label>
+                                                                    </div>
+                                                                </td>
+                                                                
+                                                                <!-- Subtotal línea -->
+                                                                <td class="cart-product-grand-total">
+                                                                    <label>{{ item.product.price }}</label>
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                            {% endfor %}
+                                                            
+                                                        </tbody><!-- /tbody -->
+                                                    </table><!-- /table -->
+                                                    
+                                                </div>
+                                            </div><!-- /.shopping-cart-table -->
+                                            
+                                            
+                                        </div><!-- /.shopping-cart -->
+                                    </div>
+                                    <!-- panel-body  -->
+
+                                </div><!-- row -->
+                            </div>
+                            <!-- checkout-step-01  -->
+                            
+                            <!-- checkout-step-02  -->
+                            <div class="panel panel-default checkout-step-02">
+                                <div class="panel-heading">
+                                <h4 class="unicase-checkout-title">
+                                    <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseTwo">
+                                    <span>2</span>Dirección de Facturación
+                                    </a>
+                                </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="row">
+
+                                        <!-- already-registered-login -->
+                                        <div class="col-md-12 col-sm-12 already-registered-login">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="info-title" for="nombres">Nombres</label>
+                                                    <input type="text" class="form-control unicase-form-control text-input" id="nombres" name="first_name" placeholder="" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="info-title" for="apellidos">Apellidos</label>
+                                                    <input type="text" class="form-control unicase-form-control text-input" id="apellidos" name="last_name" placeholder="" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="info-title" for="correo">Correo electrónico</label>
+                                                    <input type="email" class="form-control unicase-form-control text-input" id="correo" name="email" placeholder="" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="info-title" for="telefono">Número de teléfono</label>
+                                                    <input type="text" class="form-control unicase-form-control text-input" id="telefono" name="phone" placeholder="" required>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="info-title" for="direccion1">Dirección 1</label>
+                                                    <input type="text" class="form-control unicase-form-control text-input" id="direccion1" name="address_line1" placeholder="" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="info-title" for="direccion2">Dirección 2</label>
+                                                    <input type="text" class="form-control unicase-form-control text-input" id="direccion2" name="address_line2" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="info-title" for="ciudad">Ciudad</label>
+                                                    <input type="text" class="form-control unicase-form-control text-input" id="ciudad" name="city" placeholder="" required>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="info-title" for="depto">Depto.</label>
+                                                    <input type="text" class="form-control unicase-form-control text-input" id="depto" name="state" placeholder="" required>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="info-title" for="pais">País</label>
+                                                    <input type="text" class="form-control unicase-form-control text-input" id="pais" name="country" placeholder="" required>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="info-title" for="nota">Nota</label>
+                                                    <textarea rows="2" class="form-control unicase-form-control text-input" id="nota" name="order_note" placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>	
+                                </div>
+                                </div>
+                            </div>
+                            <!-- checkout-step-02  -->
+
+                            <br>
+                            <button type="submit" name="submit" class="btn btn-primary btn-block">Procesar Orden</button>
+                            <a href="{% url 'store' %}" name="submit" class="btn btn-warning btn-block">Seguir comprando</a>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        </form>
+					</div><!-- /.checkout-steps -->
+				</div>
+            
+			</div><!-- /.row -->
+		</div><!-- /.checkout-box -->
+		
+    </div>
+</div>
+{% endblock %}

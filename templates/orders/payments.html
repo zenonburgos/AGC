@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="breadcrumb">
+	<div class="container">
+		<div class="breadcrumb-inner">
+			<ul class="list-inline list-unstyled">
+				<li><a href="#">Inicio</a></li>
+				<li class='active'>Carrito</li>
+			</ul>
+		</div><!-- /.breadcrumb-inner -->
+	</div><!-- /.container -->
+</div><!-- /.breadcrumb -->
+
+<div class="body-content outer-top-xs">
+	<div class="container">
+		<div class="text-center p-5" id="empty-cart" style="display: none;">
+			<h3>Su Carrito está vacío</h3>
+		</div>
+        <h4 class="text-center"><b>Revise su Orden y realice su pago</b></h4>
+		<div class="row ">
+			<div class="shopping-cart">
+				<div class="panel panel-default">
+                    <div class="panel-heading">Dirección de facturación</div>
+                    <div class="panel-body">
+                        <p style="margin-bottom: 0;">{{ order.full_name }}</p>
+                        <p style="margin-bottom: 0;">{{ order.full_address }}</p>
+                        <p style="margin-bottom: 0;">{{ order.city }}, {{ order.state }}</p>
+                        <p style="margin-bottom: 0;">{{ order.country }}</p>
+                        <p style="margin-bottom: 0;">{{ order.email }}</p>
+                        <p style="margin-bottom: 0;">{{ order.phone }}</p>
+                        {% if order.order_note %}
+                            <b>Notas:</b> {{ order.order_note }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Método de pago</div>
+                    <div class="panel-body">
+                        <p>Paypal</p>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Reseña de artículo</div>
+                    <div class="panel-body">
+                        <table id="carrito" class="table">
+                            <thead>
+                                <tr>                                                            
+                                    <th class="cart-description item">Imagen</th>
+                                    <th class="cart-product-name item">Producto</th>
+                                    <th class="cart-qty item">Cant</th>
+                                    <th class="cart-sub-total item">Precio unit.</th>
+                                </tr>
+                            </thead><!-- /thead -->
+                            
+                            <tbody>
+                                {% for item in cart_items %}
+                                
+                                <tr>
+                                    <td class="cart-image">
+                                        <a class="entry-thumbnail" href="{{ item.product.get_url }}">
+                                            <img src="{% if item.product.image %} {{ item.product.image.url }} {% else %} {% static 'img/producto-sin-foto.jpg' %} {% endif %}" alt="">
+                                        </a>
+                                    </td>
+                                    <td class="cart-product-name-info">
+                                        <h4 class='cart-product-description'><a href="{{ item.product.get_url }}">{{ item.product }}</a></h4>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <a href="{% url 'products_by_category' item.product.category.slug %}">{{ item.product.category }}</a>
+                                            </div>
+                                            
+                                        </div><!-- /.row -->
+                                        
+                                    </td>                                                           
+                                    <td class="cart-product-quantity">
+                                        <div class="quant-input">
+                                            <label>{{ item.quantity }}</label>
+                                        </div>
+                                    </td>
+                                    
+                                    <!-- Subtotal línea -->
+                                    <td class="cart-product-grand-total">
+                                        <label>{{ item.product.price }}</label>
+                                    </td>
+                                </tr>
+                                
+                                {% endfor %}
+                                
+                            </tbody><!-- /tbody -->
+                        </table><!-- /table -->
+                    </div>
+                </div>
+
+				<div class="col-md-4 col-sm-12 estimate-ship-tax">
+					
+				</div><!-- /.estimate-ship-tax -->
+
+				<div class="col-md-4 col-sm-12 estimate-ship-tax">
+					
+				</div><!-- /.estimate-ship-tax -->
+				
+				<div class="col-md-4 col-sm-12 cart-shopping-total">
+					
+					<table class="table">
+						<thead>
+							<tr>
+								<th>
+									<div class="cart-grand-total">
+										Gran Total<span class="inner-left-md">${{ grand_total }}</span>
+									</div>
+								</th>
+							</tr>
+						</thead><!-- /thead -->
+						<tbody>
+								<tr>
+									<td>
+										<div class="cart-checkout-btn pull-right">
+											<div id="smart-button-container">
+                                                <div style="text-align: center;">
+                                                  <div id="paypal-button-container"></div>
+                                                </div>
+                                            </div>
+											<!-- <span class="">Checkout with multiples address!</span> -->
+										</div>
+									</td>
+								</tr>
+						</tbody><!-- /tbody -->
+					</table><!-- /table -->
+				</div><!-- /.cart-shopping-total -->
+				
+			</div><!-- /.shopping-cart -->
+			
+		</div> <!-- /.row -->		
+		<br>
+		<br>
+		<br>
+</div><!-- /.body-content -->
+<script src="https://www.paypal.com/sdk/js?client-id=AdjJFVgjVt-kuq-PFL8G5QtqcbZP-LbanGVCHKjKEc4P6PATe1P1FX42yOEUWLWj1qwZH-b8BErW00ON&currency=USD" data-sdk-integration-source="button-factory"></script>
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var amount = "{{ grand_total }}"
+    var url = "{% url 'payments' %}"
+    var csrftoken = getCookie('csrftoken');
+    var orderID = "{{order.order_number}}"
+    var payment_method = 'PayPal'
+
+    function initPayPalButton() {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'paypal',
+          
+        },
+  
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{"amount":{"currency_code":"USD","value":amount}}]
+          });
+        },
+  
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(orderData) {
+            
+            // Full available details
+            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+  
+            // Show a success message within this page, e.g.
+            const element = document.getElementById('paypal-button-container');
+            element.innerHTML = '';
+            element.innerHTML = '<h3>Thank you for your payment!</h3>';
+  
+            // Or go to another URL:  actions.redirect('thank_you.html');
+            console.log(details);
+				sendData();
+				function sendData(){
+					fetch(url, {
+						method : "POST",
+						headers: {
+							"Content-type": "application/json",
+							"X-CSRFToken": csrftoken,
+						},
+						body: JSON.stringify({
+							orderID: orderID,
+							transID: details.id,
+							payment_method: payment_method,
+							status: details.status,
+						}),
+					})
+				  .then((response) => response.json())
+				  .then((data) => {
+						window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
+					});
+				}
+            
+          });
+        },
+  
+        onError: function(err) {
+          console.log(err);
+        }
+      }).render('#paypal-button-container');
+    }
+    initPayPalButton();
+</script>
+
+{% endblock %}

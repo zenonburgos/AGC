@@ -53,8 +53,9 @@ LOCAL_APPS = [
     'core.accounts',
     'core.inv.templatetags',
     'core.reports',
-    'core.orders',
+    'core.orders', ##Ordenes de mesas o turnos de clientes
     'core.store',
+    'core.orders_store', ##Ordenes del ecommerce como tal
 ]
 
 THIRD_PARTY_APPS = [
@@ -225,6 +226,8 @@ SIMPLE_JWT = {
 # Setup support for proxy headers
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 

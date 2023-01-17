@@ -1,3 +1,5 @@
+import requests
+
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
@@ -62,11 +64,20 @@ def login(request):
             auth.login(request, user)
             messages.success(request, 'Has ingresado correctamente.')
             # return redirect('cus_dashboard')
-            return redirect('index')
+            url = request.META.get('HTTP_REFERER')
+            try:
+                query = requests.utils.urlparse(url).query
+                params = dict(x.split('=') for x in query.split('&'))
+                if 'next' in params:
+                    nextPage = params['next']
+                    return redirect(nextPage)
+            except:
+                return redirect('index')
         else:
             messages.error(request, 'Credenciales inválidas.')
             return redirect('cus_login')
     return render(request, 'accounts/login.html')
+
 
 @login_required(login_url = 'cus_login')
 def logout(request):
