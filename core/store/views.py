@@ -105,6 +105,7 @@ def product_detail(request, category_slug, product_slug):
 
 def add_to_cart_in_product_detail(request, producto_id):
     product_qty = int(request.GET['product_qty'])
+    
     # print(product_qty)
     if request.user.is_authenticated:
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
