@@ -207,7 +207,7 @@ EMAIL_PORT = 587
 
 EMAIL_HOST_USER = 'znburgos@gmail.com'
 
-EMAIL_HOST_PASSWORD = 'dhkmhlyjbsxarquh'
+EMAIL_HOST_PASSWORD = 'cciavetyylikfdyc'
 
 #In a live server
 DOMAIN = 'perdomocomercio.com'

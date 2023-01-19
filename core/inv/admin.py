@@ -48,9 +48,9 @@ class ProductImageAdmin(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(ImportExportModelAdmin):
-    fields = ('code', 'barcode', 'name', 'description', 'slug', 'product_type', 'category', 'model', 'brand', 'cost', 'fact', 'fact2', 'fact3', 'price', 'price2', 'price3', 'image', 'is_inventoried', 'active', 'store', 'special_offers', 'featured_products', 'best_seller', 'is_hot')
+    fields = ('code', 'barcode', 'name', 'description', 'slug', 'product_type', 'category', 'model', 'brand', 'cost', 'fact', 'fact2', 'fact3', 'price', 'price2', 'price3', 'image', 'is_inventoried', 'active', 'store', 'special_offers', 'featured_products', 'best_seller', 'is_hot', 'stock')
     list_display_links = ('name', 'model')
-    list_display = ('name', 'model', 'marca', 'store', 'brand', 'category', 'active', 'catalogue', 'special_offers', 'featured_products', 'best_seller', 'is_hot', 'created_at')
+    list_display = ('name', 'model', 'marca', 'store', 'brand', 'category', 'active', 'catalogue', 'special_offers', 'featured_products', 'best_seller', 'is_hot', 'created_at', 'stock')
     list_editable = ('active', 'catalogue', 'brand', 'category', 'store', 'special_offers', 'featured_products', 'best_seller', 'is_hot')
     search_fields = ['code', 'name']
     list_per_page = 15

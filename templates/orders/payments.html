@@ -18,7 +18,7 @@
 		<div class="text-center p-5" id="empty-cart" style="display: none;">
 			<h3>Su Carrito está vacío</h3>
 		</div>
-        <h4 class="text-center"><b>Revise su Orden y realice su pago</b></h4>
+        <h4 class="text-center"><b>Revise su Orden para realizar pago</b></h4>
 		<div class="row ">
 			<div class="shopping-cart">
 				<div class="panel panel-default">
@@ -138,7 +138,7 @@
 		<br>
 		<br>
 </div><!-- /.body-content -->
-<script src="https://www.paypal.com/sdk/js?client-id=AdjJFVgjVt-kuq-PFL8G5QtqcbZP-LbanGVCHKjKEc4P6PATe1P1FX42yOEUWLWj1qwZH-b8BErW00ON&currency=USD" data-sdk-integration-source="button-factory"></script>
+
 <script>
     function getCookie(name) {
         let cookieValue = null;
@@ -155,12 +155,12 @@
         }
         return cookieValue;
     }
-
     var amount = "{{ grand_total }}"
     var url = "{% url 'payments' %}"
     var csrftoken = getCookie('csrftoken');
     var orderID = "{{order.order_number}}"
     var payment_method = 'PayPal'
+    var redirect_url = "{% url 'order_complete' %}"
 
     function initPayPalButton() {
       paypal.Buttons({
@@ -183,34 +183,35 @@
             
             // Full available details
             console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-  
+            
+            sendData();
+            function sendData(){
+                fetch(url, {
+                    method : 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken,
+                    },
+                    body: JSON.stringify({
+                        orderID: orderID,
+                        transID: orderData.id,
+                        payment_method: payment_method,
+                        status: orderData.status,
+                    }),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
+                });
+            }
             // Show a success message within this page, e.g.
             const element = document.getElementById('paypal-button-container');
             element.innerHTML = '';
-            element.innerHTML = '<h3>Thank you for your payment!</h3>';
+            element.innerHTML = '<h3>¡Gracias por su pago!</h3>';
+            
   
             // Or go to another URL:  actions.redirect('thank_you.html');
-            console.log(details);
-				sendData();
-				function sendData(){
-					fetch(url, {
-						method : "POST",
-						headers: {
-							"Content-type": "application/json",
-							"X-CSRFToken": csrftoken,
-						},
-						body: JSON.stringify({
-							orderID: orderID,
-							transID: details.id,
-							payment_method: payment_method,
-							status: details.status,
-						}),
-					})
-				  .then((response) => response.json())
-				  .then((data) => {
-						window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
-					});
-				}
+           
             
           });
         },
