@@ -45,13 +45,13 @@ $(document).ready(function () {
     $(".adding_to_cart").on("click", function (e) {
         e.preventDefault();
         
-        producto_id = $(this).attr('data-id');
-        if(window.location.pathname == '/product_detail/'){
+        producto_id = $(this).attr('data-id');        
+        if(window.location.pathname != '/store'){
             product_qty = $('#cant').val();
         }else{
             product_qty = 1;
         }
-        
+
         url = $(this).attr('data-url');
         data = {
             producto_id: producto_id,

@@ -106,6 +106,7 @@ TEMPLATES = [
                 # 'core.inv.context_processors.menu_links_group',
                 'core.inv.context_processors.menu_categories',
                 'core.inv.context_processors.menu_subcategories',
+                'core.inv.context_processors.menu_almacenes',
                 'core.store.context_processors.get_cart_counter',
                 'core.store.context_processors.get_cart_amounts',
             ],

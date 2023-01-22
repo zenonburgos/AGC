@@ -341,6 +341,36 @@ class Company(BaseModel):
         ordering = ['id']
 
 
+class Branch(BaseModel):
+    name = models.CharField(max_length=150, verbose_name='Sucursal')
+    number = models.IntegerField(default=2, verbose_name='Sucursal No.')
+    address = models.CharField(max_length=150, null=True, blank=True, verbose_name='Dirección')
+    phone = models.CharField(max_length=15, unique=True, null=True, blank=True, verbose_name='Teléfono')
+    image = models.ImageField(upload_to='sucursal/%Y/%m/%d', null=True, blank=True, verbose_name='Imagen')
+    active = models.BooleanField(default=True, verbose_name='Activo')
+
+    def __str__(self):
+        return self.name
+
+    def get_image(self):
+        if self.image:
+            return f'{settings.MEDIA_URL}{self.image}'
+        return f'{settings.STATIC_URL}img/empty.png'
+    # 
+    def toJSON(self):
+        item = model_to_dict(self)
+        item['image'] = self.get_image()
+        return item
+
+    class Meta:
+        verbose_name = 'Sucursal'
+        verbose_name_plural = 'Sucursales'
+        default_permissions = ()
+        permissions = {
+            ('change_branch', 'Can change branch')
+        }
+        ordering = ['id']
+
 class Sale(BaseModel):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
     cli = models.ForeignKey(Client, on_delete=models.CASCADE)
@@ -431,6 +461,7 @@ class DetSale(models.Model):
 
 class Entry(BaseModel):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, default=2)
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
     date_joined = models.DateField(default=datetime.now)
     doc_type = models.CharField(max_length=15, null=True, blank=True, verbose_name='Tipo doc.')

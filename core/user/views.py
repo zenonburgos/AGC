@@ -14,7 +14,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, F
 from core.inv.mixins import IsSuperuserMixin, ValidatePermissionRequiredMixin
 from core.user.forms import UserForm, UserProfileForm
 from core.user.models import User
-
+from core.inv.models import Branch
 
 class UserListView(LoginRequiredMixin, ValidatePermissionRequiredMixin, ListView):
     model = User
@@ -230,3 +230,16 @@ class UserChangePasswordView(LoginRequiredMixin, FormView):
         context['list_url'] = self.success_url
         context['action'] = 'edit'
         return context
+
+
+class UserChangeBranch(LoginRequiredMixin, View):
+
+    def get(self, request, *args, **kwargs):
+        try:
+            # print(self.kwargs)
+            # Guarda toda la información de la fila en la variable de sesión
+            # teniendo acceso a todos las columnas de dicha fila (id, name, etc...)
+            request.session['almacen'] = Branch.objects.get(pk=self.kwargs['pk'])
+        except:
+            pass
+        return HttpResponseRedirect(reverse_lazy('inv:dashboard'))

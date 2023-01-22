@@ -42,8 +42,28 @@
                             {% endfor %}
                         </div>
                     {% endif %}
+                    
                 </li>
             {% endif %}
+            
+            {% if almacenes.all.count > 1 %}
+            <li class="nav-item dropdown language-dropdown">
+                <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="language-dropdown"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ request.session.almacen }}
+                    <img src="{% static 'img/almacen.png' %}" class="flag-width" alt="flag">
+                </a>
+                
+                <div class="dropdown-menu position-absolute" aria-labelledby="language-dropdown">
+                    {% for alm in almacenes %}
+                        {% if alm.id != request.session.almacen.id %}
+                            <a class="dropdown-item d-flex" href="{% url 'user:user_change_branch' alm.id %}">{{alm.name}}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </li>
+            {% endif %}
+
             <li class="nav-item dropdown user-profile-dropdown">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

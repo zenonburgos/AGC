@@ -10,7 +10,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from core.inv.forms import ProductForm, BrandForm, CategoryForm
 from core.inv.mixins import ValidatePermissionRequiredMixin
-from core.inv.models import Brand, Group, Product, Category
+from core.inv.models import Brand, Group, Product, Category, Branch
 
 
 class ProductListView(ValidatePermissionRequiredMixin, ListView):
@@ -41,7 +41,7 @@ class ProductListView(ValidatePermissionRequiredMixin, ListView):
         context['title'] = 'Listado de Productos'
         context['create_url'] = reverse_lazy('inv:product_create')
         context['list_url'] = reverse_lazy('inv:product_list')
-        context['entity'] = 'Productos'
+        context['entity'] = 'Productos'        
         return context
 
 
@@ -107,7 +107,7 @@ class ProductCreateView(ValidatePermissionRequiredMixin, CreateView):
         context["brands"] = Brand.objects.all()
         context["groups"] = Group.objects.all()
         context['frmBrand'] = BrandForm()
-        context['frmCategory'] = CategoryForm()
+        context['frmCategory'] = CategoryForm()        
         return context
 
 

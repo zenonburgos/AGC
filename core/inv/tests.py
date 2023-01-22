@@ -17,12 +17,19 @@ import sys
 sys.path.append('../../')
 from config.wsgi import *
 
-from core.inv.models import Product
+from core.inv.models import Product, Entry, Branch
 
 products = Product.objects.all()
+branch = Branch.objects.filter(id=1)
+entries = Entry.objects.all()
+
+
+for e in entries:
+    e.branch = Branch.objects.get(id=1)
+    e.save()
 
 xcode = 1
-for product in products:
+# for product in products:
     # nombre = product.name
     # words = product.name.split()
     # # word2 = product.name.split()[1]
@@ -44,11 +51,13 @@ for product in products:
     # product.model = str(xcode)
     # product.code = product.barcode
     # product.model = product.barcode
-    product.cost = float(product.cost)/1.13
-    xcode += 1
-    print(product.name)
+    
+    # Lo siguiente estaba y fue lo último que hice para productos
+    # product.cost = float(product.cost)/1.13
+    # xcode += 1
+    # print(product.name)
 
-    product.save()
+    # product.save()
 
 
 

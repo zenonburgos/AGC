@@ -13,8 +13,9 @@ from django.views.generic import CreateView, ListView, UpdateView, DeleteView, V
 from core.inv.forms import EntryForm, SupplierForm
 
 from core.inv.mixins import ExistsCompanyMixin, ValidatePermissionRequiredMixin
-from core.inv.models import DetEntry, Entry, Movements, Product, Supplier, TiposDoc
+from core.inv.models import DetEntry, Entry, Movements, Product, Supplier, TiposDoc, Branch
 
+from crum import get_current_request
 
 class EntryListView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, ListView):
     model = Entry
@@ -62,6 +63,8 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
     permission_required = 'add_entry'
     url_redirect = success_url
 
+    request = get_current_request()
+
     def post(self, request, *args, **kwargs):
         
         data = {}
@@ -104,9 +107,13 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
                     itemno += 1
             elif action == 'add':
                 with transaction.atomic():
+                    sessionbranch = request.session['almacen']
+                    alm = Branch.objects.get(id=sessionbranch.id)
+
                     ents = json.loads(request.POST['ents'])
 
                     entry = Entry()
+                    entry.branch = alm
                     entry.date_joined = ents['date_joined']
                     entry.doc_type = ents['doc_type']
                     entry.doc_ser = ents['doc_ser']

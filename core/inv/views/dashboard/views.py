@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
-from core.inv.models import Sale, Product, DetSale
+from core.inv.models import Sale, Product, DetSale, Branch
 
 from random import randint
 
@@ -77,4 +77,5 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['panel'] = 'Panel de administrador'
         context['graph_sales_year_month'] = self.get_graph_sales_year_month()
+        context['branches'] = Branch.objects.all()
         return context

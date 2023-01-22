@@ -4,20 +4,32 @@ from django.contrib.auth.admin import UserAdmin
 from import_export.admin import ImportExportModelAdmin
 
 from core.inv.models import Brand, Category, Group, Entry, Product, Sale, Supplier, \
-    Movements, TiposDoc, ProductImage
+    Movements, TiposDoc, ProductImage, Company, Branch
 
 from core.accounts.models import Account
 
-# @admin.register(Account)
-# class AccountAdmin(UserAdmin):
-#     list_display = ('email', 'first_name', 'last_name', 'username', 'last_login', 'date_joined', 'is_active')
-#     list_display_links = ('email', 'first_name', 'last_name')
-#     readonly_fields = ('last_login', 'date_joined')
-#     ordering = ('-date_joined',)
+@admin.register(Account)
+class AccountAdmin(UserAdmin):
+    list_display = ('email', 'first_name', 'last_name', 'username', 'last_login', 'date_joined', 'is_active')
+    list_display_links = ('email', 'first_name', 'last_name')
+    readonly_fields = ('last_login', 'date_joined')
+    ordering = ('-date_joined',)
 
-#     filter_horizontal = ()
-#     list_filter = ()
-#     fieldsets = ()
+    filter_horizontal = ()
+    list_filter = ()
+    fieldsets = ()
+
+@admin.register(Company)
+class Company(ImportExportModelAdmin):
+    # pass
+    fields = ('name', 'nrc', 'parent', 'nit', 'address', 'opening_date', 'phone', 'mobile', 'website', 'image', 'active')
+    list_display = ('name', 'nrc', 'nit')
+
+@admin.register(Branch)
+class Branch(ImportExportModelAdmin):
+    # pass
+    fields = ('name', 'number', 'address', 'phone', 'image', 'active')
+    list_display = ('name', 'number')
 
 @admin.register(Category)
 class CategoryProduct(ImportExportModelAdmin):
@@ -67,7 +79,7 @@ class SupplierAdmin(admin.ModelAdmin):
 
 @admin.register(Entry)
 class EntryAdmin(admin.ModelAdmin):
-    fields = ('supplier', 'date_joined', 'doc_type', 'doc_ser', 'doc_num', 'subtotal', 'iva', 'total_iva', 'total')
+    fields = ('branch', 'supplier', 'date_joined', 'doc_type', 'doc_ser', 'doc_num', 'subtotal', 'iva', 'total_iva', 'total')
     list_display = ('supplier', 'date_joined', 'doc_type', 'doc_ser', 'doc_num', 'subtotal', 'total')
 
 

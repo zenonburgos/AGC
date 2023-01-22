@@ -1,5 +1,5 @@
 from django.db.models import Q
-from core.inv.models import Category, Group
+from core.inv.models import Category, Group, Branch
 
 
 def menu_categories(request):
@@ -14,6 +14,13 @@ def menu_subcategories(request):
     subcategories = Category.objects.filter(parent__isnull=False)
 
     return {'submenu_categories': subcategories}
+
+
+def menu_almacenes(request):
+    almacenes = Branch.objects.all
+    print(almacenes)
+    return {'almacenes': almacenes}
+
 
 
 
