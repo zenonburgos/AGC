@@ -29,6 +29,7 @@ for e in entries:
     e.save()
 
 xcode = 1
+
 # for product in products:
     # nombre = product.name
     # words = product.name.split()
