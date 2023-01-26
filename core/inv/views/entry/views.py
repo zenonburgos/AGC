@@ -20,16 +20,18 @@ from crum import get_current_request
 class EntryListView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, ListView):
     model = Entry
     template_name = 'entry/list.html'
-    permission_required = 'view_entry'
-
+    permission_required = 'view_entry'    
+    
     def post(self, request, *args, **kwargs):
         data = {}
+        tmov=TiposDoc.objects.get(abrv=self.kwargs['tipomov'])
         try:
             action = request.POST['action']
             if action == 'searchdata':
+                
                 data = []
                 position = 1
-                for i in Entry.objects.all():
+                for i in Entry.objects.filter(doc=tmov.id):
                     item = i.toJSON()
                     if i.supplier == None:
                         item['supplier'] = 'no definido'
@@ -49,9 +51,10 @@ class EntryListView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, ListVie
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Listado de Entradas'
-        context['create_url'] = reverse_lazy('inv:entry_create')
-        context['list_url'] = reverse_lazy('inv:entry_list')
+        context['create_url'] = reverse_lazy('inv:entry_create') ##no interfiere en ninguna parte
+        context['list_url'] = reverse_lazy('inv:entry_list') ##no interfiere en ninguna parte
         context['entity'] = 'Entradas'
+        context['tipomov'] = self.kwargs['tipomov']
         return context
 
 
@@ -62,9 +65,8 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
     success_url = reverse_lazy('inv:entry_list')
     permission_required = 'add_entry'
     url_redirect = success_url
-
     request = get_current_request()
-
+    
     def post(self, request, *args, **kwargs):
         
         data = {}
@@ -115,7 +117,7 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
                     entry = Entry()
                     entry.branch = alm
                     entry.date_joined = ents['date_joined']
-                    entry.doc_type = ents['doc_type']
+                    entry.doc = TiposDoc.objects.get(pk=ents['doc'])
                     entry.doc_ser = ents['doc_ser']
                     entry.doc_num = ents['doc_num']
                     entry.supplier_id = ents['supplier']
@@ -146,7 +148,7 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
                         mov.cant = int(i['cant'])
                         mov.save()
                         # Actualizar control de documentos TiposDoc
-                        tdoc = TiposDoc.objects.get(abrv='HDE')
+                        tdoc = TiposDoc.objects.get(abrv=self.kwargs['tipomov'])
                         tdoc.last_number = ents['doc_num']
                         tdoc.last_date = ents['date_joined']
                         tdoc.save()
@@ -179,7 +181,7 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
     
     def get_num_doc(self):
         # ser = ents['doc_ser']
-        for i in TiposDoc.objects.filter(abrv='HDE'):
+        for i in TiposDoc.objects.filter(abrv=self.kwargs['tipomov']):
             numDoc = i.last_number
         return numDoc
 
@@ -191,6 +193,7 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
         context['action'] = 'add'
         context['det'] = []
         context['numdoc'] = self.get_num_doc()
+        context['tipomov'] = self.kwargs['tipomov'] #Esto lo extrae del parametro de la url
         context['frmSupplier'] = SupplierForm()
         
         return context
@@ -200,10 +203,10 @@ class EntryUpdateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Updat
     model = Entry
     form_class = EntryForm
     template_name = 'entry/create.html'
-    success_url = reverse_lazy('inv:entry_list')
+    # success_url = reverse_lazy('inv:entry_list')
     permission_required = 'inv.change_entry'
-    url_redirect = success_url
-    
+    # url_redirect = success_url
+   
     def get_form(self, form_class=None):
         instance = self.get_object()
         form = EntryForm(instance=instance)
@@ -228,8 +231,10 @@ class EntryUpdateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Updat
 
     def post(self, request, *args, **kwargs):
         data = {}
+        
         try:
             action = request.POST['action']
+            
             if action == 'search_products':
                 data = []
                 ids_exclude = json.loads(request.POST['ids'])
@@ -269,7 +274,8 @@ class EntryUpdateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Updat
                     # sale = Sale.objects.get(pk=self.get_object().id) #Forma 1
                     entry = self.get_object()
                     entry.date_joined = ents['date_joined']
-                    entry.doc_type = ents['doc_type']
+                    # entry.doc_type = ents['doc_type']
+                    entry.doc = TiposDoc.objects.get(pk=ents['doc'])
                     entry.doc_ser = ents['doc_ser']
                     entry.doc_num = ents['doc_num']
                     entry.cli_id = ents['supplier']
@@ -322,6 +328,7 @@ class EntryUpdateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Updat
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
             data['error'] = str(e)
+        print(data)
         return JsonResponse(data, safe=False)
 
     def get_context_data(self, **kwargs):
@@ -332,6 +339,7 @@ class EntryUpdateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Updat
         context['action'] = 'edit'
         context['det'] = json.dumps(self.get_details_product(), cls=DjangoJSONEncoder)
         context['frmClient'] = SupplierForm()
+        context['tipomov'] = self.kwargs['tipomov'] #Esto lo extrae del parametro de la url
         return context
 
 

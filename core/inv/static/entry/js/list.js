@@ -1,4 +1,5 @@
 var tblEntry;
+var tipomov = $('input[name="tipomov"]').val()
 
 $(function () {
     tblEntry = $('#zero-config').DataTable({
@@ -50,7 +51,7 @@ $(function () {
                     htm += '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">';
                     htm += '<polyline points="6 9 12 15 18 9"></polyline></svg></button>';
                     htm += '<div class="dropdown-menu" aria-labelledby="dropdownMenuReference17">';
-                    htm += '<a class="dropdown-item" href="/inv/entry/update/' + row.id + '/">Editar</a>';
+                    htm += '<a class="dropdown-item" href="/inv/entry/update/' + row.id + '/'+tipomov+'">Editar</a>';
                     htm += '<a class="dropdown-item" href="/inv/entry/cancel/' + row.id + '/">Anular</a>';
                     htm += '<a class="dropdown-item" href="/inv/entry/delete/' + row.id + '/">Eliminar</a>';
                     htm += '<div class="dropdown-divider"></div>';

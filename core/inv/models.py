@@ -152,6 +152,36 @@ def set_slug(sender, instance, *args, **kwargs): #callback
 pre_save.connect(set_slug, sender=Brand)
 
 
+class TiposDoc(BaseModel):
+    movtype = models.CharField(max_length=1)
+    name = models.CharField(max_length=150)
+    abrv = models.CharField(max_length=3, unique=True)
+    last_number = models.CharField(max_length=15)
+    last_date = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        user = get_current_user()
+        if user is not None:
+            if not self.pk:
+                self.created_by = user
+            else:
+                self.updated_by = user
+        super(TiposDoc, self).save()
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item
+    
+    class Meta:
+        verbose_name = 'Tipo Doc'
+        verbose_name_plural = 'Tipos Documentos'
+        ordering = ['name']
+
+
 class Product(BaseModel):
     code = models.CharField(max_length=20,unique=True, verbose_name='Código interno')
     barcode = models.CharField(max_length=50, null=True, blank=True, verbose_name='Código barra')
@@ -461,10 +491,11 @@ class DetSale(models.Model):
 
 class Entry(BaseModel):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, default=2)
-    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
+    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)    
     date_joined = models.DateField(default=datetime.now)
-    doc_type = models.CharField(max_length=15, null=True, blank=True, verbose_name='Tipo doc.')
+    # doc_type = models.CharField(max_length=15, null=True, blank=True, verbose_name='Tipo doc.')
+    doc = models.ForeignKey(TiposDoc, on_delete=models.CASCADE, verbose_name='Tipo Mov.')
     doc_ser = models.CharField(max_length=15, null=True, blank=True, verbose_name='Serie doc.')
     doc_num = models.CharField(max_length=15, null=True, blank=True, verbose_name='Num. doc.')
     supplier_doc_num = models.CharField(max_length=15, null=True, blank=True, verbose_name='Num. doc. Proveedor')
@@ -494,7 +525,7 @@ class Entry(BaseModel):
         item['number'] = self.get_number()
         if not self.supplier == None:
             item['supplier'] = self.supplier.toJSON() #Pasa esto cuando la entrada es nula
-        item['doc_type'] = self.doc_type
+        item['doc'] = self.doc.toJSON()
         item['doc_ser'] = self.doc_ser
         item['doc_num'] = self.doc_num
         item['subtotal'] = format(self.subtotal, '.2f')
@@ -572,32 +603,4 @@ class Movements(BaseModel):
         verbose_name_plural = 'Movimientos de Kardex'
         ordering = ['id']
 
-
-class TiposDoc(BaseModel):    
-    name = models.CharField(max_length=150)
-    abrv = models.CharField(max_length=3, unique=True)
-    last_number = models.CharField(max_length=15)
-    last_date = models.DateField(blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        user = get_current_user()
-        if user is not None:
-            if not self.pk:
-                self.created_by = user
-            else:
-                self.updated_by = user
-        super(TiposDoc, self).save()
-
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
-    
-    class Meta:
-        verbose_name = 'Tipo Doc'
-        verbose_name_plural = 'Tipos Documentos'
-        ordering = ['name']
         

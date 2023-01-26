@@ -36,9 +36,11 @@
                             <h5 class="">{{ title }}</h5>
                             <input type="hidden" id="numdoc" value="{{ numdoc }}">
                         </div>
+                        
                         <div class="row">
                             <input type="hidden" name="action" value="{{ action }}">
-                            <div class="col-md-4">
+                            <input type="hidden" name="tipomov" value="{{ tipomov }}">
+                            <div class="col-md-3">
                                 <div class="input-group input-group-sm mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">Fecha</span>
@@ -47,6 +49,16 @@
                                     {{ form.date_joined }}
                                 </div>
                             </div>
+
+                            <div class="col-md-3">
+                                <div class="input-group input-group-sm mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Doc.</span>
+                                    </div>
+                                    {{ form.doc }}
+                                </div>
+                            </div>
+
                             <div class="col-md-3">
                                 <div class="input-group input-group-sm mb-4">
                                     <div class="input-group-prepend">
@@ -55,6 +67,7 @@
                                     {{ form.doc_ser }}
                                 </div>
                             </div>
+                           
                             <div class="col-md-3">
                                 <div class="input-group input-group-sm mb-4">
                                     <div class="input-group-prepend">
@@ -62,6 +75,9 @@
                                     </div>
                                     {{ form.doc_num }}
                                 </div>
+                            </div>
+                            <div class="col-md-3">
+                                
                             </div>
                         </div>
 
@@ -211,10 +227,11 @@
                         <button type="submit" class="btn btn-primary btn-block mb-4 mr-2 rounded bs-tooltip" title="Guardar">
                             Guardar registro
                         </button>
-                        <a href="{{ list_url }}" class="btn btn-danger btn-block mb-4 mr-2">
-                            Cancelar
-                        </a>
-
+                        
+                            <a href="{% url 'inv:entry_list' tipomov %}" class="btn btn-danger btn-block mb-4 mr-2">
+                                Cancelar
+                            </a>
+                        
                     </div>
                 </div>
             </div>

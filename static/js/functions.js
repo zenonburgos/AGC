@@ -28,7 +28,7 @@ function message_error(obj) {
         html = '<p>' + obj + '</p>';
     }
     Swal.fire({
-        title: 'Ha habido un error',
+        title: 'Ha ocurrido un error',
         html: html,
         type: 'error'
     });

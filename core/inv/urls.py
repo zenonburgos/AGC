@@ -44,11 +44,11 @@ urlpatterns = [
     path('sale/update/<int:pk>/', SaleUpdateView.as_view(), name='sale_update'),
     path('sale/invoice/pdf/<int:pk>/', SaleInvoicePdfView.as_view(), name='sale_invoice_pdf'),
     # entry
-    path('entry/list/', EntryListView.as_view(), name='entry_list'),
-    path('entry/add/', EntryCreateView.as_view(), name='entry_create'),    
+    path('entry/list/<str:tipomov>/', EntryListView.as_view(), name='entry_list'),
+    path('entry/add/<str:tipomov>/', EntryCreateView.as_view(), name='entry_create'),    
+    path('entry/update/<int:pk>/<str:tipomov>/', EntryUpdateView.as_view(), name='entry_update'),
     path('entry/delete/<int:pk>/', EntryDeleteView.as_view(), name='entry_delete'),
-    path('entry/update/<int:pk>/', EntryUpdateView.as_view(), name='entry_update'),
-    path('entry/cancel/<int:id>/', EntryCancel, name='entry_cancel'),
+    path('entry/cancel/<int:id>/', EntryCancel, name='entry_cancel'), ## Para ingresar como anulado
 
     # company
     path('company/update/', CompanyUpdateView.as_view(), name='company_update'),

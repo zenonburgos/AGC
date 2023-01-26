@@ -74,13 +74,13 @@ class ProductAdmin(ImportExportModelAdmin):
 @admin.register(Supplier)
 class SupplierAdmin(admin.ModelAdmin):
     fields = ('nrc', 'razon_social', 'nit', 'address', 'active')
-    list_display = ('nrc', 'nit')
+    list_display = ('razon_social', 'nrc', 'nit')
     
 
 @admin.register(Entry)
 class EntryAdmin(admin.ModelAdmin):
-    fields = ('branch', 'supplier', 'date_joined', 'doc_type', 'doc_ser', 'doc_num', 'subtotal', 'iva', 'total_iva', 'total')
-    list_display = ('supplier', 'date_joined', 'doc_type', 'doc_ser', 'doc_num', 'subtotal', 'total')
+    fields = ('branch', 'supplier', 'date_joined', 'doc', 'doc_ser', 'doc_num', 'subtotal', 'iva', 'total_iva', 'total')
+    list_display = ('supplier', 'date_joined', 'doc', 'doc_ser', 'doc_num', 'subtotal', 'total')
 
 
 @admin.register(Sale)
@@ -98,5 +98,5 @@ class MovsAdmin(admin.ModelAdmin):
 
 @admin.register(TiposDoc)
 class TiposDocAdmin(admin.ModelAdmin):
-    fields = ('name', 'abrv', 'last_number', 'last_date')
+    fields = ('name', 'type', 'abrv', 'last_number', 'last_date')
     list_display = ('name', 'abrv', 'last_number', 'last_date')

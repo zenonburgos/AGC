@@ -439,11 +439,15 @@ class EntryForm(ModelForm):
                     # 'data-toggle': 'datetimepicker'
                 }
             ),
+            
             'doc_ser': TextInput(attrs={
                 'class': 'form-control',
                 'autocomplete': 'off',
                 'aria-label': 'Small',
                 'aria-describedby': 'inputGroup-sizing-sm',
+            }),
+            'doc': Select(attrs={
+                'class': 'form-control',
             }),
             'doc_num': TextInput(attrs={
                 'class': 'form-control',
@@ -451,6 +455,7 @@ class EntryForm(ModelForm):
                 'aria-label': 'Small',
                 'aria-describedby': 'inputGroup-sizing-sm',
             }),
+            
             'iva': TextInput(attrs={
                 'class': 'form-control'
             }),

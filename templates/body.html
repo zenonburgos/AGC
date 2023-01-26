@@ -102,9 +102,13 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="components" data-parent="#accordionExample">
                             <li>
-                                <a href="{% url 'inv:entry_list' %}"> Compras </a>
+                                <a href="{% url 'inv:entry_list' 'HDE' %}"> Compras </a>
                             </li>
-
+                        </ul>
+                        <ul class="collapse submenu list-unstyled" id="components" data-parent="#accordionExample">
+                            <li>
+                                <a href="{% url 'inv:entry_list' 'AJE' %}"> Ajuste de Inventario </a>
+                            </li>
                         </ul>
                     </li>
 

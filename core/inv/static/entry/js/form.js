@@ -3,11 +3,11 @@ var tblSearchProducts;
 var itemno = 0;
 var select_search_product;
 var ents = {
-    //Datos de Cabevera de factura
+    //Datos de Cabecera de factura
     items: {
         supplier: '',
         date_joined: '',
-        doc_type: 'ENT',
+        doc: '',
         doc_ser: '',
         doc_num: '',
         supplier_doc_num: '',
@@ -191,6 +191,7 @@ var ents = {
 };
 
 var modo = $('input[name="action"]').val()
+var tipomov = $('input[name="tipomov"]').val()
 
 function formatRepo(repo) {
     if (repo.loading) {
@@ -226,6 +227,8 @@ function formatRepo(repo) {
 
 $(function () {
     select_search_product = $('select[name="search_product"]');
+
+    
 
     $(".placeholder").select2({
         placeholder: "Seleccione",
@@ -498,6 +501,7 @@ $(function () {
         }
 
         ents.items.date_joined = $('input[name="date_joined"]').val();
+        ents.items.doc = $('select[name="doc"]').val();        
         ents.items.doc_ser = $('input[name="doc_ser"]').val();
         ents.items.doc_num = $('input[name="doc_num"]').val();
         ents.items.supplier = $('select[name="supplier"]').val();
@@ -505,9 +509,10 @@ $(function () {
 
         localStorage.setItem("xfecha", ents.items.date_joined);
         console.log(ents)
-
+        
         var parameters = new FormData();
         parameters.append('action', $('input[name="action"]').val())
+        parameters.append('tipomov', $('input[name="tipomov"]').val())
         parameters.append('ents', JSON.stringify(ents.items));
         submit_with_ajax(window.location.pathname,
             'Notificación', '¿Estas seguro de guardar los cambios?', parameters, function (response) {
@@ -517,7 +522,7 @@ $(function () {
                 // }, function () {
                 //     location.href = '/inv/entry/list';
                 // });
-                location.href = '/inv/entry/list';
+                location.href = '/inv/entry/list/'+tipomov+'/';
 
         });
     });

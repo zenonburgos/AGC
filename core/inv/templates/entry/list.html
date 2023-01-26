@@ -1,4 +1,9 @@
 {% extends 'list.html' %}
+{% block buttons_list %}
+    <a href="{% url 'inv:entry_create' tipomov %}" class="btn btn-primary mb-2" title="Nuevo Registro">
+        Agregar
+    </a>
+{% endblock %}
 {% load static %}
 {% block columns %}
     <tr>
@@ -30,6 +35,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <input type="hidden" name="tipomov" value="{{ tipomov }}">
                 <div class="modal-body">
                     <table class="table table-bordered" id="tblDet">
                         <thead>
