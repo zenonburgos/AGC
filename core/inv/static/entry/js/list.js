@@ -177,7 +177,7 @@ $(function () {
                 },
                 "stripeClasses": [],
                 "lengthMenu": [7, 10, 20, 50],
-                "pageLength": 7,
+                "pageLength": 25,
                 order: [[0, 'desc']],
             });
 

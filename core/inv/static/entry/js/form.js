@@ -488,6 +488,54 @@ $(function () {
             ents.add(product);
             tblSearchProducts.row($(this).parents('tr')).remove().draw();
         });
+    
+    // $("#id_nulled" ).change(function() {
+    //     if( $(this).is(':checked') == true){
+            
+    //         $('#searchproducts').prop('disabled', true);
+
+    //         //Si no hay items en detalles solo nos salimos
+    //         if (ents.items.products.length === 0) return false;
+            
+    //         alert_action('Notificación', 'Al ingresar como NULO se borrarán los productos del detalle, ¿Desea continuar?', function () {
+    //             ents.items.products = [];
+    //             ents.list();
+    //         }, function () {
+    //             //Volvemos a activar porque se eligió NO
+    //             $(this).prop('checked', false);
+    //             $('#searchproducts').prop('disabled', false);
+    //         });
+            
+    //     }else{
+    //         $('#searchproducts').prop('disabled', false);
+    //     }
+    // });
+
+    var checkbox = document.getElementById('id_nulled');
+    
+    checkbox.addEventListener("change", validaCheckbox, false);
+    
+    function validaCheckbox()
+    {
+        var checked = checkbox.checked;
+        if(checked){
+            $('#searchproducts').prop('disabled', true);
+            
+            //Si no hay items en detalles solo nos salimos
+            if (ents.items.products.length === 0) return false;
+            
+            if (confirm("Al ingresar como NULO se borrarán los productos del detalle, ¿Desea continuar?")) {
+                ents.items.products = [];
+                ents.list();
+            }else{
+                $(this).prop('checked', false);
+                $('#searchproducts').prop('disabled', false);
+            }
+            
+        }else{
+            $('#searchproducts').prop('disabled', false);
+        }
+    }
 
     //event submit
     $('#frmEntry').on('submit', function (e) {
@@ -495,7 +543,7 @@ $(function () {
 
         if( $('#id_nulled').is(':checked') != true){
             if (ents.items.products.length === 0 ) {
-                message_error('Debe al menos tener un item en su detalle');
+                message_error('Debe al menos tener un item en su detalle');                
                 return false;
             }
         }

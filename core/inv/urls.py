@@ -48,7 +48,7 @@ urlpatterns = [
     path('entry/add/<str:tipomov>/', EntryCreateView.as_view(), name='entry_create'),    
     path('entry/update/<int:pk>/<str:tipomov>/', EntryUpdateView.as_view(), name='entry_update'),
     path('entry/delete/<int:pk>/', EntryDeleteView.as_view(), name='entry_delete'),
-    path('entry/cancel/<int:id>/', EntryCancel, name='entry_cancel'), ## Para ingresar como anulado
+    path('entry/cancel/<int:id>/<str:tipomov>/', EntryCancel, name='entry_cancel'), ## Para ingresar como anulado
 
     # company
     path('company/update/', CompanyUpdateView.as_view(), name='company_update'),

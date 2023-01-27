@@ -48,6 +48,7 @@ class EntryListView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, ListVie
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
+    # Acá se ignora cualquier variable que venga de POST u otra función
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Listado de Entradas'
@@ -185,6 +186,7 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
             numDoc = i.last_number
         return numDoc
 
+    # Acá se ignora cualquier variable que venga de POST u otra función
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'NUEVA ENTRADA DE MERCADERÍA'
@@ -302,7 +304,7 @@ class EntryUpdateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Updat
                         mov.prod_id = i['id']
                         mov.date = ents['date_joined']
                         mov.doc_num = ents['doc_num']
-                        mov.type_mov = 'S'
+                        mov.type_mov = 'E'                        
                         mov.cant = int(i['cant'])
                         mov.save()
                         
@@ -331,6 +333,7 @@ class EntryUpdateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Updat
         print(data)
         return JsonResponse(data, safe=False)
 
+    # Acá se ignora cualquier variable que venga de POST u otra función
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Editar Entrada'
@@ -362,6 +365,7 @@ class EntryDeleteView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Delet
             data['error'] = str(e)
         return JsonResponse(data)
 
+    # Acá se ignora cualquier variable que venga de POST u otra función
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Eliminar Entrada'
@@ -382,6 +386,7 @@ def EntryCancel(request, id):
     if request.method=='GET':        
         contexto = {
             'obj': entry,
+            'tipomov': request['tipomov'], #Esto lo extrae del parametro de la url
             'list_url': reverse_lazy('inv:entry_list'),
         }
 
