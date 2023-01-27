@@ -586,6 +586,7 @@ class DetEntry(models.Model):
 class Movements(BaseModel):
     sale = models.ForeignKey(Sale, null=True, blank=True, on_delete=models.CASCADE)
     entry = models.ForeignKey(Entry, null=True, blank=True, on_delete=models.CASCADE)
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
     prod = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.now)
     doc_ser = models.CharField(max_length=15, null=True, blank=True, verbose_name='Serie doc.')
