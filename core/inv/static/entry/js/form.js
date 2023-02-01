@@ -541,7 +541,7 @@ $(function () {
             }
         }
 
-        if(supplier.value === ''){ // Si no se ha especificado proveedor         
+        if(supplier.value === '' && tipomov == 'HDE'){ // Si no se ha especificado proveedor         
             if(anulado.checked === false){ // Y si el documento no es anulado
                 // Disparamos mensaje porque no pueden ir documentos no anulados sin proveedor
                 message_error('Debe elegir al menos "COMPRAS VARIAS" como proveedor.');
