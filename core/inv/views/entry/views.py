@@ -82,7 +82,7 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
                 # products = Product.objects.filter(Q(stock__gt=0) | Q(is_inventoried=False))
                 products = Product.objects.filter()
                 if len(term):
-                    products = Product.objects.filter(Q(name__icontains=term) | Q(code__icontains=term))
+                    products = Product.objects.filter(Q(name__icontains=term) | Q(code__icontains=term) | Q(tags__icontains=term))
 
                 itemno = 1
                 # for i in products.exclude(id__in=ids_exclude):
@@ -104,7 +104,7 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
                 term = request.POST['term']
                 data.append({'id': term, 'text': term})
                 # products = Product.objects.filter(name__icontains=term).filter(Q(stock__gt=0) | Q(is_inventoried=False))
-                products = Product.objects.filter(Q(name__icontains=term) | Q(code__icontains=term))
+                products = Product.objects.filter(Q(name__icontains=term) | Q(code__icontains=term) | Q(tags__icontains=term))
                 itemno = 1
                 # for i in products.exclude(id__in=ids_exclude)[0:10]:
                 for i in products[0:10]:
@@ -253,7 +253,7 @@ class EntryUpdateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Updat
                 # products = Product.objects.filter(Q(stock__gt=0) | Q(is_inventoried=False))
                 products = Product.objects.filter()
                 if len(term):
-                    products = Product.objects.filter(Q(name__icontains=term) | Q(code__icontains=term))
+                    products = Product.objects.filter(Q(name__icontains=term) | Q(code__icontains=term) | Q(tags__icontains=term))
 
                 itemno = 1
                 # for i in products.exclude(id__in=ids_exclude):
@@ -270,7 +270,7 @@ class EntryUpdateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Updat
                 term = request.POST['term']
                 data.append({'id': term, 'text': term})
                 # products = Product.objects.filter(name__icontains=term).filter(Q(stock__gt=0) | Q(is_inventoried=False))
-                products = Product.objects.filter(Q(name__icontains=term) | Q(code__icontains=term))
+                products = Product.objects.filter(Q(name__icontains=term) | Q(code__icontains=term) | Q(tags__icontains=term))
                 itemno = 1
                 # for i in products.exclude(id__in=ids_exclude)[0:10]:
                 for i in products[0:10]:

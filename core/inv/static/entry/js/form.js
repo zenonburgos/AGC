@@ -173,7 +173,7 @@ var ents = {
                 "sUrl": "",
                 "sInfoThousands": ",",
                 "sLoadingRecords": "Cargando...",
-                "order": [[0, "asc"]],
+                "order": [[0, "desc"]],
                 "oAria": {
                     "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
@@ -183,7 +183,7 @@ var ents = {
             "stripeClasses": [],
             "lengthMenu": [7, 10, 20, 50],
             "pageLength": 7,
-
+            order: [[0, "desc"]],
         });
         //var xfecha = localStorage.getItem("xfecha");
         //console.log(this.items);
@@ -541,7 +541,7 @@ $(function () {
             }
         }
 
-        if(supplier.value === '' && tipomov == 'HDE'){ // Si no se ha especificado proveedor         
+        if(supplier.value === '' && tipomov == 'HDE'){ // Si no se ha especificado proveedor y es compra
             if(anulado.checked === false){ // Y si el documento no es anulado
                 // Disparamos mensaje porque no pueden ir documentos no anulados sin proveedor
                 message_error('Debe elegir al menos "COMPRAS VARIAS" como proveedor.');
@@ -605,7 +605,7 @@ $(function () {
                     term: params.term,
                     action: 'search_autocomplete',
                     //ids: JSON.stringify(ents.get_ids())
-                    ids: JSON.stringify(ents.getProductsIds())
+                    ids: JSON.stringify(ents.getProductsIds()) //Los que ya están en los detalles
                 }
                 return queryParameters;
             },
