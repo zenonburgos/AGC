@@ -3,7 +3,7 @@ from datetime import datetime
 from django.forms import *
 from django import forms
 
-from core.inv.models import Category, Entry, Product, ProductImage, Client, Sale, Company, Supplier, Brand
+from core.inv.models import Category, Entry, Product, ProductImage, Client, Sale, Company, Supplier, Brand, TiposDoc
 
 
 class CategoryForm(ModelForm):
@@ -416,6 +416,10 @@ class EntryForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['supplier'].queryset = Supplier.objects.none()
+    
+    # doc = ModelChoiceField(queryset=TiposDoc.objects.none(), widget=Select(attrs={
+    #     'class': 'form-control',
+    # }))
 
     class Meta:
         model = Entry

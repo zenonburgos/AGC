@@ -25,11 +25,12 @@ $(function () {
             {"data": "date_joined"},
             {"data": "subtotal"},
             {"data": "total"},
+            {"nulled": "nulled"},
             {"data": "id"},
         ],
         columnDefs: [
             {
-                targets: [-2, -3],
+                targets: [-3, -4],
                 class: 'text-center',
                 orderable: false,
                 render: function (data, type, row) {
@@ -38,6 +39,17 @@ $(function () {
                     htm += '</div>';
 
                     return htm;
+                }
+            },
+            {
+                targets: [-2],
+                class: 'text-center',
+                orderable: true,
+                render: function (data, type, row) {
+                    if (row.nulled) {
+                        return '<span class="badge badge-danger">Sí</span>';
+                    }
+                    return '<span class="badge badge-success">No</span>';
                 }
             },
             {
@@ -52,8 +64,8 @@ $(function () {
                     htm += '<polyline points="6 9 12 15 18 9"></polyline></svg></button>';
                     htm += '<div class="dropdown-menu" aria-labelledby="dropdownMenuReference17">';
                     htm += '<a class="dropdown-item" href="/inv/entry/update/' + row.id + '/'+tipomov+'">Editar</a>';
-                    htm += '<a class="dropdown-item" href="/inv/entry/cancel/' + row.id + '/">Anular</a>';
-                    htm += '<a class="dropdown-item" href="/inv/entry/delete/' + row.id + '/">Eliminar</a>';
+                    htm += '<a class="dropdown-item" href="/inv/entry/cancel/' + row.id + '/'+tipomov+'">Anular</a>';
+                    htm += '<a class="dropdown-item" href="/inv/entry/delete/' + row.id + '/'+tipomov+'">Eliminar</a>';
                     htm += '<div class="dropdown-divider"></div>';
                     htm += '<a class="dropdown-item" target="_blank" href="/inv/sale/invoice/pdf/' + row.id + '/">Imprimir</a>';
                     htm += '</div>';

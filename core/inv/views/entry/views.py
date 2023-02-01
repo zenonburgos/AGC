@@ -93,6 +93,11 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
                     item['itemno'] = itemno
                     data.append(item)
                     itemno += 1
+            if action == 'search_doc':
+                data = []
+                for i in TiposDoc.objects.filter(pk=request.POST['id']):
+                    data.append({'id': i.id, 'name': i.name})
+           
             elif action == 'search_autocomplete':
                 data = []
                 ids_exclude = json.loads(request.POST['ids'])
@@ -121,6 +126,7 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
                     entry.doc = TiposDoc.objects.get(pk=ents['doc'])
                     entry.doc_ser = ents['doc_ser']
                     entry.doc_num = ents['doc_num']
+                    entry.nulled = ents['nulled']
                     entry.supplier_id = ents['supplier']
                     entry.supplier_doc_num = ents['supplier_doc_num']
                     entry.subtotal = float(ents['subtotal'])
@@ -128,11 +134,17 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
                     entry.total = float(ents['total'])
                     entry.save()
 
+                    # Actualizar control de documentos TiposDoc
+                    tdoc = TiposDoc.objects.get(abrv=self.kwargs['tipomov'])
+                    tdoc.last_number = ents['doc_num']
+                    tdoc.last_date = ents['date_joined']
+                    tdoc.save()
+
                     for i in ents['products']:
                         # Guardar en Detalle documento
                         det = DetEntry()
                         det.entry_id = entry.id
-                        det.prod_id = i['id']
+                        det.prod_id = i['id']                        
                         det.cant = int(i['cant'])
                         det.cost = float(i['cost'])
                         det.subtotal = float(i['subtotal'])
@@ -141,6 +153,7 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
                         mov = Movements()
                         mov.entry_id = entry.id
                         mov.prod_id = i['id']
+                        mov.branch = alm
                         mov.date = ents['date_joined']
                         mov.doc_ser = ents['doc_ser']
                         mov.doc_num = ents['doc_num']
@@ -148,11 +161,7 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
                         mov.cost = float(i['cost'])
                         mov.cant = int(i['cant'])
                         mov.save()
-                        # Actualizar control de documentos TiposDoc
-                        tdoc = TiposDoc.objects.get(abrv=self.kwargs['tipomov'])
-                        tdoc.last_number = ents['doc_num']
-                        tdoc.last_date = ents['date_joined']
-                        tdoc.save()
+                        
                         # Recalcular stock al agregar
                         if det.prod.is_inventoried:
                             det.prod.stock += det.cant
@@ -196,8 +205,8 @@ class EntryCreateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Creat
         context['det'] = []
         context['numdoc'] = self.get_num_doc()
         context['tipomov'] = self.kwargs['tipomov'] #Esto lo extrae del parametro de la url
+        context['id_tipomov'] = TiposDoc.objects.get(abrv=self.kwargs['tipomov']).id #Esto lo extrae del parametro de la url
         context['frmSupplier'] = SupplierForm()
-        
         return context
 
 
@@ -272,11 +281,15 @@ class EntryUpdateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Updat
                     itemno += 1
             elif action == 'edit':
                 with transaction.atomic():
+                    sessionbranch = request.session['almacen']
+                    alm = Branch.objects.get(id=sessionbranch.id)
+
                     ents = json.loads(request.POST['ents'])
                     # sale = Sale.objects.get(pk=self.get_object().id) #Forma 1
                     entry = self.get_object()
                     entry.date_joined = ents['date_joined']
                     # entry.doc_type = ents['doc_type']
+                    entry.nulled = ents['nulled']
                     entry.doc = TiposDoc.objects.get(pk=ents['doc'])
                     entry.doc_ser = ents['doc_ser']
                     entry.doc_num = ents['doc_num']
@@ -302,10 +315,13 @@ class EntryUpdateView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Updat
                         mov = Movements()
                         mov.entry_id = entry.id
                         mov.prod_id = i['id']
+                        mov.branch = alm
                         mov.date = ents['date_joined']
                         mov.doc_num = ents['doc_num']
-                        mov.type_mov = 'E'                        
+                        mov.doc_ser = ents['doc_ser']
+                        mov.type_mov = 'E'
                         mov.cant = int(i['cant'])
+                        mov.cost = float(i['cost'])
                         mov.save()
                         
                         # Recalcular stock
@@ -370,24 +386,25 @@ class EntryDeleteView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, Delet
         context = super().get_context_data(**kwargs)
         context['title'] = 'Eliminar Entrada'
         context['entity'] = 'Entradas'
+        context['tipomov'] = self.kwargs['tipomov'] #Esto lo extrae del parametro de la url
         context['list_url'] = self.success_url
         return context
 
 
-def EntryCancel(request, id):
+def EntryCancel(request, id, tipomov):
     entry = Entry.objects.filter(pk=id).first()
-    context = {}
+    contexto = {}
     template_name = 'entry/anular.html'
     now = timezone.now()
 
     if not entry:
-        return redirect('inv:entry_list')
+        return redirect('inv:entry_list', tipomov)
 
-    if request.method=='GET':        
+    if request.method=='GET':
         contexto = {
             'obj': entry,
-            'tipomov': request['tipomov'], #Esto lo extrae del parametro de la url
-            'list_url': reverse_lazy('inv:entry_list'),
+            # 'tipomov': request['tipomov'], #Esto lo extrae del parametro de la url
+            'list_url': reverse_lazy('inv:entry_list', tipomov),
         }
 
     if request.method=='POST':
@@ -402,6 +419,7 @@ def EntryCancel(request, id):
         entry.total = 0
         entry.nulled_at = now
         entry.save()
-        return redirect('inv:entry_list')
+        # print(request['tipomov'])
+        return redirect('inv:entry_list', 'HDE')
     
     return render(request, template_name, contexto)

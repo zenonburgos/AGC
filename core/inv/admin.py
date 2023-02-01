@@ -79,8 +79,8 @@ class SupplierAdmin(admin.ModelAdmin):
 
 @admin.register(Entry)
 class EntryAdmin(admin.ModelAdmin):
-    fields = ('branch', 'supplier', 'date_joined', 'doc', 'doc_ser', 'doc_num', 'subtotal', 'iva', 'total_iva', 'total')
-    list_display = ('supplier', 'date_joined', 'doc', 'doc_ser', 'doc_num', 'subtotal', 'total')
+    fields = ('branch', 'supplier', 'date_joined', 'doc', 'doc_ser', 'doc_num', 'subtotal', 'iva', 'total_iva', 'total', 'nulled')
+    list_display = ('supplier', 'nulled', 'date_joined', 'doc', 'doc_ser', 'doc_num', 'subtotal', 'total')
 
 
 @admin.register(Sale)

@@ -490,9 +490,9 @@ class DetSale(models.Model):
 
 
 class Entry(BaseModel):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
     branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
-    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)    
+    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=True, blank=True)    
     date_joined = models.DateField(default=datetime.now)
     # doc_type = models.CharField(max_length=15, null=True, blank=True, verbose_name='Tipo doc.')
     doc = models.ForeignKey(TiposDoc, on_delete=models.CASCADE, verbose_name='Tipo Mov.')

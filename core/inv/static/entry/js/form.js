@@ -10,6 +10,7 @@ var ents = {
         doc: '',
         doc_ser: '',
         doc_num: '',
+        nulled: false,
         supplier_doc_num: '',
         subtotal: 0.00,
         iva: 0.00,
@@ -191,7 +192,13 @@ var ents = {
 };
 
 var modo = $('input[name="action"]').val()
-var tipomov = $('input[name="tipomov"]').val()
+var tipomov = $('input[name="tipomov"]').val() //El input hidden en create.html
+
+if(modo === 'add'){
+    var id_tipomov = $('input[name="id_tipomov"]').val() //El input hidden en create.html
+    //document.getElementById("id_doc").value = 1;
+    $("#id_doc").val(id_tipomov);
+}
 
 function formatRepo(repo) {
     if (repo.loading) {
@@ -226,9 +233,7 @@ function formatRepo(repo) {
 }
 
 $(function () {
-    select_search_product = $('select[name="search_product"]');
-
-    
+    select_search_product = $('select[name="search_product"]');    
 
     $(".placeholder").select2({
         placeholder: "Seleccione",
@@ -478,46 +483,32 @@ $(function () {
     });
 
     $('#tblSearchProducts tbody')
-        .on('click', 'a[rel="add"]', function () {
-            itemno += 1;
-            var tr = tblSearchProducts.cell($(this).closest('td, li')).index();
-            var product = tblSearchProducts.row(tr.row).data();
-            product.itemno = itemno;
-            product.cant = 1;
-            product.subtotal = 0.00;
-            ents.add(product);
-            tblSearchProducts.row($(this).parents('tr')).remove().draw();
-        });
-    
-    // $("#id_nulled" ).change(function() {
-    //     if( $(this).is(':checked') == true){
-            
-    //         $('#searchproducts').prop('disabled', true);
+    .on('click', 'a[rel="add"]', function () {
+        itemno += 1;
+        var tr = tblSearchProducts.cell($(this).closest('td, li')).index();
+        var product = tblSearchProducts.row(tr.row).data();
+        product.itemno = itemno;
+        product.cant = 1;
+        product.subtotal = 0.00;
+        ents.add(product);
+        tblSearchProducts.row($(this).parents('tr')).remove().draw();
+    });
 
-    //         //Si no hay items en detalles solo nos salimos
-    //         if (ents.items.products.length === 0) return false;
-            
-    //         alert_action('Notificación', 'Al ingresar como NULO se borrarán los productos del detalle, ¿Desea continuar?', function () {
-    //             ents.items.products = [];
-    //             ents.list();
-    //         }, function () {
-    //             //Volvemos a activar porque se eligió NO
-    //             $(this).prop('checked', false);
-    //             $('#searchproducts').prop('disabled', false);
-    //         });
-            
-    //     }else{
-    //         $('#searchproducts').prop('disabled', false);
-    //     }
-    // });
+    var anulado = document.getElementById('id_nulled');
+    var supplier = document.getElementById('id_supplier');
 
-    var checkbox = document.getElementById('id_nulled');
+    anulado.addEventListener("change", siEsAnulado, false);
     
-    checkbox.addEventListener("change", validaCheckbox, false);
+    //Doc select
+    tipodocSelect = $('select[name="doc"]');
     
-    function validaCheckbox()
+    tipodocSelect.on('change', function () {
+        console.log(this.value)
+    });
+    
+    function siEsAnulado()
     {
-        var checked = checkbox.checked;
+        var checked = anulado.checked;
         if(checked){
             $('#searchproducts').prop('disabled', true);
             
@@ -541,6 +532,8 @@ $(function () {
     $('#frmEntry').on('submit', function (e) {
         e.preventDefault();
 
+        /******** VALIDACIONES ***************/
+
         if( $('#id_nulled').is(':checked') != true){
             if (ents.items.products.length === 0 ) {
                 message_error('Debe al menos tener un item en su detalle');                
@@ -548,10 +541,28 @@ $(function () {
             }
         }
 
+        if(supplier.value === ''){ // Si no se ha especificado proveedor         
+            if(anulado.checked === false){ // Y si el documento no es anulado
+                // Disparamos mensaje porque no pueden ir documentos no anulados sin proveedor
+                message_error('Debe elegir al menos "COMPRAS VARIAS" como proveedor.');
+                return false;
+            }
+        }
+
+        // if( $('#id_supplier').is(':checked') != true){
+        //     if (ents.items.products.length === 0 ) {
+        //         message_error('Debe al menos tener un item en su detalle');                
+        //         return false;
+        //     }
+        // }
+
+        //var anulado = document.getElementById("id_nulled");
+
         ents.items.date_joined = $('input[name="date_joined"]').val();
-        ents.items.doc = $('select[name="doc"]').val();        
+        ents.items.doc = $('select[name="doc"]').val();
         ents.items.doc_ser = $('input[name="doc_ser"]').val();
         ents.items.doc_num = $('input[name="doc_num"]').val();
+        ents.items.nulled = anulado.checked;
         ents.items.supplier = $('select[name="supplier"]').val();
         ents.items.supplier_doc_num = $('input[name="supplier_doc_num"]').val();
 

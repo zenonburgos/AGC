@@ -1,1 +1,108 @@
-{% extends 'delete.html' %}
+{% extends 'body.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div id="flFormsGrid" class="col-lg-10 layout-spacing">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-header">
+                        <div class="row">
+                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                <h4>{{ title }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-content widget-content-area">
+                        <form method="post" action=".">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="{{ action }}">
+
+                            {% if form.errors %}
+                                <div class="alert alert-arrow-right alert-icon-right alert-light-danger mb-4"
+                                     role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <svg xmlns="http://www.w3.org/2000/svg" data-dismiss="alert" width="24"
+                                             height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                             class="feather feather-x close">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </button>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-alert-circle">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12" y2="16"></line>
+                                    </svg>
+                                    <strong>¡Atención!</strong> Hubo un error.
+                                    <ul>
+                                        {% for field in form %}
+                                            {% for error in field.errors %}
+                                                <li>{{ error }}.</li>
+                                            {% endfor %}
+
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                            <div class="alert custom-alert-1 mb-4" role="alert">
+
+                                <div class="media">
+                                    <div class="alert-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                             stroke-linecap="round" stroke-linejoin="round"
+                                             class="feather feather-alert-triangle">
+                                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                                            <line x1="12" y1="17" x2="12" y2="17"></line>
+                                        </svg>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="alert-text">
+                                            <strong>¡Atención! </strong><span> ¿Desea borrar de {{ entity }}, el registro: {{ object.name }}?</span>
+                                        </div>
+                                        <div class="alert-btn">
+                                            <button type="submit" class="btn btn-default btn-danger">Sí, borrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {#                                <button type="submit" class="btn btn-primary mt-3">#}
+                            {#                                    Eliminar#}
+                            {#                                </button>#}
+                            <a href="{% url 'inv:entry_list' tipomov %}" type="submit" class="btn btn-info mt-3 float-right">
+                                Cancelar
+                            </a>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+
+            var parameters = new FormData(this);
+            submit_with_ajax(window.location.pathname, 'Notificación', '¿Está seguro de eliminar el actual registro?', parameters, function () {
+                Swal.fire({
+                    title: 'Aviso',
+                    text: 'Registro eliminado correctamente',
+                    type: 'success',
+                    timer: 2000
+                }).then(function (result) {
+                    location.href = '{% url "inv:entry_list" tipomov %}'
+                });
+            });
+        });
+    </script>
+{% endblock %}

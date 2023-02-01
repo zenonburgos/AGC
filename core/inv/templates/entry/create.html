@@ -40,6 +40,7 @@
                         <div class="row">
                             <input type="hidden" name="action" value="{{ action }}">
                             <input type="hidden" name="tipomov" value="{{ tipomov }}">
+                            <input type="hidden" name="id_tipomov" value="{{ id_tipomov }}">
                             <div class="col-md-3">
                                 <div class="input-group input-group-sm mb-4">
                                     <div class="input-group-prepend">
@@ -55,7 +56,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">Doc.</span>
                                     </div>
-                                    {{ form.doc }}
+                                    {{ form.doc }} <!-- Hay JS para manejar esto al final de este archivo -->
                                 </div>
                             </div>
 
@@ -228,9 +229,9 @@
                             Guardar registro
                         </button>
                         
-                            <a href="{% url 'inv:entry_list' tipomov %}" class="btn btn-danger btn-block mb-4 mr-2">
-                                Cancelar
-                            </a>
+                        <a href="{% url 'inv:entry_list' tipomov %}" class="btn btn-danger btn-block mb-4 mr-2">
+                            Cancelar
+                        </a>
                         
                     </div>
                 </div>
@@ -331,7 +332,40 @@
             //$("select").removeAttr("required");
             //$("textarea").removeAttr("required");
         }
-        
+
+        var modo = $('input[name="action"]').val()
+        if(modo === 'add'){
+            $(function () { //Se ejecuta al inicio del template
+                var idTipodoc = $('input[name="id_tipomov"]').val()
+                var select_tiposdoc = $('select[name="doc"]');
+                //var options = '<option value="">Seleccione</>';
+                $.ajax({
+                    url: window.location.pathname,
+                    type: 'POST',
+                    data: {
+                        'action': 'search_doc',
+                        'id': idTipodoc
+                    },
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRFToken': csrftoken
+                    }
+                }).done(function (data) {
+                    console.log(data);
+                    if (!data.hasOwnProperty('error')) {
+                        $.each(data, function(key, value){
+                            options='<option value="'+value.id+'">'+value.name+'</option>';
+                        });
+                        return false;
+                    }
+                    message_error(data.error);
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + ': ' + errorThrown);
+                }).always(function (data) {
+                    select_tiposdoc.html(options);
+                });
+            });
+        }
     </script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
