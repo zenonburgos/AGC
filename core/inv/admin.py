@@ -98,5 +98,5 @@ class MovsAdmin(admin.ModelAdmin):
 
 @admin.register(TiposDoc)
 class TiposDocAdmin(admin.ModelAdmin):
-    fields = ('name', 'type', 'abrv', 'last_number', 'last_date')
+    fields = ('name', 'movtype', 'abrv', 'last_number', 'last_date')
     list_display = ('name', 'abrv', 'last_number', 'last_date')

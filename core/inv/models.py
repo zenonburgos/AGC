@@ -156,7 +156,7 @@ class TiposDoc(BaseModel):
     movtype = models.CharField(max_length=1)
     name = models.CharField(max_length=150)
     abrv = models.CharField(max_length=3, unique=True)
-    last_number = models.CharField(max_length=15)
+    last_number = models.CharField(max_length=15, null=True, blank=True)
     last_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
