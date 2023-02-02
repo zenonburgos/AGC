@@ -21,6 +21,7 @@ var product = {
                 }
             },
             columns: [
+                {"data": "tags"},
                 {"data": "id"},
                 {"data": "name"},
                 // {"data": "category.name"},
@@ -34,6 +35,10 @@ var product = {
                 {"data": "id"},
             ],
             columnDefs: [
+                {
+                    targets: [-10],
+                    visible: false,
+                },
                 {
                     targets: [-5],
                     class: 'text-center',

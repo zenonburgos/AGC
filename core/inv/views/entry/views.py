@@ -20,7 +20,7 @@ from crum import get_current_request
 class EntryListView(ExistsCompanyMixin, ValidatePermissionRequiredMixin, ListView):
     model = Entry
     template_name = 'entry/list.html'
-    permission_required = 'view_entry'    
+    permission_required = 'view_entry'
     
     def post(self, request, *args, **kwargs):
         data = {}

@@ -62,7 +62,7 @@
                           <div class="product-info">
                             <h3 class="name"><a href="{{ product.get_url }}">{{ product.product_type }} {{ product.model }}</a></h3>
                             <div class="rating rateit-small"></div>
-                            {% if user.is_staff %}
+                            {% if user.is_staff or user.is_vip and user.is_vip %}
                               {% if product.price3 %}
                                 <div class="product-price"> <span class="price"> ${{product.price3}} </span> </div>
                               {% else %}
@@ -222,7 +222,7 @@
                           <div class="description"></div>
 
                           <div style="display: inline-block">
-                            {% if user.is_staff %}
+                            {% if user.is_staff or user.is_vip  %}
                                 {% if product.price3 %}
                                   <div class="product-price"> <span class="price"> ${{ product.price3 }} </span> </div>
                                 {% else %}  
@@ -301,7 +301,7 @@
                     <div class="description"></div>
 
                     <div style="display: inline-block">
-                      {% if user.is_staff %}
+                      {% if user.is_staff or user.is_vip %}
                           {% if product.price3 %}
                             <div class="product-price"> <span class="price"> ${{ product.price3 }} </span> </div>
                           {% else %}  
@@ -322,7 +322,7 @@
                     <div class="action">
                       <ul class="list-unstyled">
                         <li class="add-cart-button btn-group">
-                          {% if user.is_staff %}
+                          {% if user.is_staff%}
                           <a data-id={{ product.id }} data-url="{% url 'add_to_cart' product.id %}" data-toggle="tooltip" class="btn btn-primary icon adding_to_cart" type="button" title="Agregar al carrito"> <i class="fa fa-shopping-cart"></i> </a>
                             <button class="btn btn-primary cart-btn" type="button">Agregar al Carrito</button>
                           {% endif %}
@@ -375,7 +375,7 @@
                           <div class="product-info">
                             <h3 class="name"><a href="{{ product.get_url }}">{{product.name}}</a></h3>
                             <div class="rating rateit-small"></div>
-                            {% if user.is_staff %}
+                            {% if user.is_staff or user.is_vip  %}
                               {% if product.price3 %}
                                 <div class="product-price"> <span class="price"> ${{product.price3}} </span> </div>
                               {% else %}
@@ -416,7 +416,7 @@
                           <div class="product-info">
                             <h3 class="name"><a href="{{ product.get_url }}">{{product.name}}</a></h3>
                             <div class="rating rateit-small"></div>
-                            {% if user.is_staff %}
+                            {% if user.is_staff or user.is_vip %}
                               {% if product.price3 %}
                                 <div class="product-price"> <span class="price"> ${{product.price3}} </span> </div>
                               {% else %}
@@ -456,7 +456,7 @@
                           <div class="product-info">
                             <h3 class="name"><a href="{{ product.get_url }}">{{product.name}}</a></h3>
                             <div class="rating rateit-small"></div>
-                            {% if user.is_staff %}
+                            {% if user.is_staff or user.is_vip %}
                               {% if product.price3 %}
                                 <div class="product-price"> <span class="price"> ${{product.price3}} </span> </div>
                               {% else %}
@@ -496,7 +496,7 @@
                           <div class="product-info">
                             <h3 class="name"><a href="{{ product.get_url }}">{{product.name}}</a></h3>
                             <div class="rating rateit-small"></div>
-                            {% if user.is_staff %}
+                            {% if user.is_staff or user.is_vip %}
                               {% if product.price3 %}
                                 <div class="product-price"> <span class="price"> ${{product.price3}} </span> </div>
                               {% else %}
@@ -536,7 +536,7 @@
                           <div class="product-info">
                             <h3 class="name"><a href="{{ product.get_url }}">{{product.name}}</a></h3>
                             <div class="rating rateit-small"></div>
-                            {% if user.is_staff %}
+                            {% if user.is_staff or user.is_vip %}
                               {% if product.price3 %}
                                 <div class="product-price"> <span class="price"> ${{product.price3}} </span> </div>
                               {% else %}
@@ -576,7 +576,7 @@
                           <div class="product-info">
                             <h3 class="name"><a href="{{ product.get_url }}">{{product.name}}</a></h3>
                             <div class="rating rateit-small"></div>
-                            {% if user.is_staff %}
+                            {% if user.is_staff or user.is_vip %}
                               {% if product.price3 %}
                                 <div class="product-price"> <span class="price"> ${{product.price3}} </span> </div>
                               {% else %}

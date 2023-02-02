@@ -176,7 +176,7 @@
                           <div class="description"></div>
 
                           <div style="display: inline-block">
-                            {% if user.is_staff %}
+                            {% if user.is_staff or user.is_vip  %}
                                 {% if product.price3 %}
                                   <div class="product-price"> <span class="price"> ${{ product.price3 }} </span> </div>
                                 {% else %}  
