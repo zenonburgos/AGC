@@ -245,6 +245,7 @@ def search(request):
         keyword = request.GET['keyword']
         if keyword:
             products = Product.objects.order_by('created_at').filter(Q(description__icontains=keyword) | 
+                                                                     Q(brand__name__icontains=keyword) |
                                                                      Q(name__icontains=keyword) | 
                                                                      Q(code__icontains=keyword) | 
                                                                      Q(model__icontains=keyword) |
