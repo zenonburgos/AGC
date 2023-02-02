@@ -132,11 +132,37 @@ class ProductUpdateView(ValidatePermissionRequiredMixin, UpdateView):
             if action == 'edit':
                 form = self.get_form()
                 data = form.save()
+            elif action == 'search_brands':
+                data = []                
+                term = request.POST['term']
+                # data.append({'id': term, 'text': term})
+                brands = Brand.objects.filter(name__icontains=term)
+                for i in brands[0:10]:
+                    item = i.toJSON()
+                    item['text'] = i.name
+                    data.append(item)
+            elif action == 'search_cats':
+                data = []                
+                term = request.POST['term']
+                # data.append({'id': term, 'text': term})
+                brands = Category.objects.filter(name__icontains=term)
+                for i in brands[0:10]:
+                    item = i.toJSON()
+                    item['text'] = i.name
+                    data.append(item)
+            elif action == 'create_brand':
+                with transaction.atomic():
+                    frmBrand = BrandForm(request.POST)
+                    data = frmBrand.save()
+            elif action == 'create_cat':
+                with transaction.atomic():
+                    frmCategory = CategoryForm(request.POST)
+                    data = frmCategory.save()
             else:
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
             data['error'] = str(e)
-        return JsonResponse(data)
+        return JsonResponse(data, safe=False)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

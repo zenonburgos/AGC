@@ -477,7 +477,7 @@ $(function () {
             "stripeClasses": [],
             "lengthMenu": [7, 10, 20, 50],
             "pageLength": 7,
-            order: [[0, 'desc']],
+            order: [[0, 'asc']],
         });
         $('#myModalSearchProducts').modal('show');
     });
