@@ -46,17 +46,16 @@
                 </li>
             {% endif %}
             
-            {% if almacenes.all.count > 1 %}
+            {% if almacenes.all.count > 1 %} <!--Si existe más de un almacen-->
             <li class="nav-item dropdown language-dropdown">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="language-dropdown"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ request.session.almacen }}
-                    <img src="{% static 'img/almacen.png' %}" class="flag-width" alt="flag">
+                    {{ request.session.almacen }} <!--Almacen como título en barra de header-->
+                    <img src="{% static 'img/almacen.png' %}" class="flag-width" alt="flag"> <!--Imagen estática-->
                 </a>
-                
                 <div class="dropdown-menu position-absolute" aria-labelledby="language-dropdown">
                     {% for alm in almacenes %}
-                        {% if alm.id != request.session.almacen.id %}
+                        {% if alm.id != request.session.almacen.id %} <!--Para que vuelva a poner el que está seleccionado en el título-->
                             <a class="dropdown-item d-flex" href="{% url 'user:user_change_branch' alm.id %}">{{alm.name}}</a>
                         {% endif %}
                     {% endfor %}
@@ -123,6 +122,7 @@
 <!--  BEGIN NAVBAR  -->
 <div class="sub-header-container">
     <header class="header navbar navbar-expand-sm">
+        
         <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

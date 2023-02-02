@@ -1,15 +1,16 @@
 {% extends 'home.html' %}
 {% load static %}
-{% block head %}    
-    {% block head_list %}
 
-    {% endblock %}
+{% block head %}    
+{% block head_list %}
+
+{% endblock %}
 {% endblock %}
 {% block body %}
     <body>
 
     {% include 'header.html' %}
-
+    {% if request.session.almacen %}
     <!--  BEGIN MAIN CONTAINER  -->
     <div class="main-container" id="container">
 
@@ -206,6 +207,11 @@
         <!--  END CONTENT AREA  -->
 
     </div>
+    {%else%}
+    <script>
+        alert("Por favor seleccione un almacén.")
+    </script>
+    {%endif%}
     <!-- END MAIN CONTAINER -->
 
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
@@ -261,5 +267,7 @@
             });
         {% endif %}
     </script>
+    
     </body>
+
 {% endblock %}
