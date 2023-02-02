@@ -7,7 +7,7 @@ var product = {
             autoWidth: false,
             destroy: true,
             deferRender: true,
-            order: [[8, "asc"]],
+            order: [[9, "asc"]],
             
             ajax: {
                 url: pathname,
@@ -157,7 +157,7 @@ var product = {
                 var stockMayorQue = parseFloat($("#iptStockMayor").val());
                 var stockMenorQue = parseFloat($("#iptStockMenor").val());
             
-                var col_stock = parseFloat(data[5]);                
+                var col_stock = parseFloat(data[6]);                
 
                 if((isNaN(stockMayorQue) && isNaN(stockMenorQue)) || 
                     (isNaN(stockMayorQue) && col_stock <= stockMenorQue) ||
@@ -176,7 +176,7 @@ var product = {
                 var precioDesde = parseFloat($("#iptPrecioDesde").val());
                 var precioHasta = parseFloat($("#iptPrecioHasta").val());
 
-                var col_precio = parseFloat(data[6]);
+                var col_precio = parseFloat(data[7]);
                 
                 if((isNaN(precioDesde) && isNaN(precioHasta)) || 
                     (isNaN(precioDesde) && col_precio <= precioHasta) ||
