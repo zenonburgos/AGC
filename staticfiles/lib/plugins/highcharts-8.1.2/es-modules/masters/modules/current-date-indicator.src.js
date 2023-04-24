@@ -1,13 +1,1 @@
-/**
- * @license Highcharts Gantt JS v8.1.2 (2020-06-16)
- * @module highcharts/modules/current-date-indicator
- * @requires highcharts
- *
- * CurrentDateIndicator
- *
- * (c) 2010-2019 Lars A. V. Cabrera
- *
- * License: www.highcharts.com/license
- */
-'use strict';
-import '../../parts-gantt/CurrentDateIndicator.js';
+C:/Users/FAMILIA/Desktop/PROYECTOS/Django/Deploys/Asystente/asystente_prod/static/lib/plugins/highcharts-8.1.2/es-modules/masters/modules/current-date-indicator.src.js

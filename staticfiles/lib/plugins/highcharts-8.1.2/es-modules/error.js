@@ -1,1 +1,1 @@
-console.error('code.highcharts.local has moved to the /code folder'); // eslint-disable-line no-console
+C:/Users/FAMILIA/Desktop/PROYECTOS/Django/Deploys/Asystente/asystente_prod/static/lib/plugins/highcharts-8.1.2/es-modules/error.js

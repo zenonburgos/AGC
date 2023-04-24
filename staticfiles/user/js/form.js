@@ -1,5 +1,1 @@
-$(function () {
-    $(".tagging").select2({
-        tags: true
-    });
-});
+C:/Users/FAMILIA/Desktop/PROYECTOS/Django/Deploys/Asystente/asystente_prod/core/user/static/user/js/form.js

@@ -1,3 +1,1 @@
-var pathname = window.location.pathname;
-
-//$( document ).tooltip();
+C:/Users/FAMILIA/Desktop/PROYECTOS/Django/Deploys/Asystente/asystente_prod/static/js/main.js

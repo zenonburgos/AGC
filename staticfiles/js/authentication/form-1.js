@@ -1,12 +1,1 @@
-var togglePassword = document.getElementById("toggle-password");
-
-if (togglePassword) {
-	togglePassword.addEventListener('click', function() {
-	  var x = document.getElementById("password");
-	  if (x.type === "password") {
-	    x.type = "text";
-	  } else {
-	    x.type = "password";
-	  }
-	});
-}
+C:/Users/FAMILIA/Desktop/PROYECTOS/Django/Deploys/Asystente/asystente_prod/static/js/authentication/form-1.js

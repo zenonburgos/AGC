@@ -1,11 +1,1 @@
-/**
- * @license Highcharts JS v8.1.2 (2020-06-16)
- * @module highcharts/themes/dark-green
- * @requires highcharts
- *
- * (c) 2009-2019 Torstein Honsi
- *
- * License: www.highcharts.com/license
- */
-'use strict';
-import '../../themes/dark-green.js';
+C:/Users/FAMILIA/Desktop/PROYECTOS/Django/Deploys/Asystente/asystente_prod/static/lib/plugins/highcharts-8.1.2/es-modules/masters/themes/dark-green.src.js

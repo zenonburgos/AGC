@@ -1,4 +1,1 @@
-window.addEventListener("load", function(){
-    var load_screen = document.getElementById("load_screen");
-    document.body.removeChild(load_screen);
-});
+C:/Users/FAMILIA/Desktop/PROYECTOS/Django/Deploys/Asystente/asystente_prod/static/js/loader.js

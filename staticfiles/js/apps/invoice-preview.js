@@ -1,5 +1,1 @@
-$('.action-print').on('click', function(event) {
-  event.preventDefault();
-  /* Act on the event */
-  window.print();
-});
+C:/Users/FAMILIA/Desktop/PROYECTOS/Django/Deploys/Asystente/asystente_prod/static/js/apps/invoice-preview.js

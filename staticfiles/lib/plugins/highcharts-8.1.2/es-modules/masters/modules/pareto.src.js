@@ -1,13 +1,1 @@
-/**
- * @license Highcharts JS v8.1.2 (2020-06-16)
- * @module highcharts/modules/pareto
- * @requires highcharts
- *
- * Pareto series type for Highcharts
- *
- * (c) 2010-2019 Sebastian Bochan
- *
- * License: www.highcharts.com/license
- */
-'use strict';
-import '../../modules/pareto.src.js';
+C:/Users/FAMILIA/Desktop/PROYECTOS/Django/Deploys/Asystente/asystente_prod/static/lib/plugins/highcharts-8.1.2/es-modules/masters/modules/pareto.src.js

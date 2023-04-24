@@ -1,11 +1,1 @@
-/**
- * @license Highcharts JS v8.1.2 (2020-06-16)
- * @module highcharts/themes/high-contrast-light
- * @requires highcharts
- *
- * (c) 2009-2019 Highsoft AS
- *
- * License: www.highcharts.com/license
- */
-'use strict';
-import '../../themes/high-contrast-light.js';
+C:/Users/FAMILIA/Desktop/PROYECTOS/Django/Deploys/Asystente/asystente_prod/static/lib/plugins/highcharts-8.1.2/es-modules/masters/themes/high-contrast-light.src.js

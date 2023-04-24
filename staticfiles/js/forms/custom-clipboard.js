@@ -1,1 +1,1 @@
-var clipboard = new Clipboard('.btn');
+C:/Users/FAMILIA/Desktop/PROYECTOS/Django/Deploys/Asystente/asystente_prod/static/js/forms/custom-clipboard.js
